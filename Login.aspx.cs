@@ -30,18 +30,31 @@ public partial class Login : PaginaWeb
     private void BtnIngresar_Click(object sender, EventArgs e)
     {
         SysUsuarios ObjUsuarios = new SysUsuarios();
-        DataTable dtUsuarios = ObjUsuarios.getUsuarios();
         string usuario, password;
         usuario = TxtUsuario.Text.Trim();
         password = Encripta(TxtPassword.Text.Trim());
-        if (ObjUsuarios.HasUsuarios)
+        //Agrega Usuarios 'Solo temporal'
+        if (ChkTemporal.Checked)
         {
-            DataRow RowUsuario = dtUsuarios.FiltroPrimero($"username={TxtUsuario.Text.Trim()} AND password={password}");
-            if ( RowUsuario !=null && RowUsuario["username"].Equals(usuario) && RowUsuario["password"].Equals(password))
+           int idUsuario = ObjUsuarios.addUsuario(usuario, TxtPassword.Text.Trim(),"ninguno@nadie.com");
+            if (idUsuario > 0)
             {
-                AlertFeo("Usuario Correcto");
+                AlertFeo($"El nuevo usuario se grabo con el id = '{idUsuario}'");
             }
         }
+        else
+        {
+            DataTable dtUsuarios = ObjUsuarios.getUsuarios();
+            if (ObjUsuarios.HasUsuarios)
+            {
+                DataRow RowUsuario = dtUsuarios.FiltroPrimero($"username={TxtUsuario.Text.Trim()} AND password={password}");
+                if (RowUsuario != null && RowUsuario["username"].Equals(usuario) && RowUsuario["password"].Equals(password))
+                {
+                    AlertFeo("Usuario Correcto");
+                }
+            }
+        }
+       
         ObjUsuarios.Dispose();
     }
 }

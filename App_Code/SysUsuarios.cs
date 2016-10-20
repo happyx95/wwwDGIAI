@@ -27,7 +27,7 @@ public class SysUsuarios : IDisposable
     
     public SysUsuarios(SqlTransaction TransaccionCompartida = null)
     {
-        if (TransaccionCompartida != null)
+        if (TransaccionCompartida == null)
         {
             SqlConexion = new SqlConnection();
             SqlConexion.ConnectionString = ConfigurationManager.ConnectionStrings["Conexion"].ConnectionString;
