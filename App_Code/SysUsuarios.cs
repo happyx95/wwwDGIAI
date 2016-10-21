@@ -31,6 +31,7 @@ public class SysUsuarios : IDisposable
         {
             SqlConexion = new SqlConnection();
             SqlConexion.ConnectionString = ConfigurationManager.ConnectionStrings["Conexion"].ConnectionString;
+            SqlAdapter = new SqlDataAdapter();
             try
             {
                 SqlConexion.Open();
@@ -44,10 +45,14 @@ public class SysUsuarios : IDisposable
         {
             SqlConexion = TransaccionCompartida.Connection;
             SqlTransacc = TransaccionCompartida;
+            SqlAdapter = new SqlDataAdapter();
         }
     }
     private void StoredProcedure(string StrSql, CommandType TipoComando = CommandType.StoredProcedure)
     {
+        Comando = new SqlCommand();
+        Comando.Connection = SqlConexion;
+        SqlAdapter.SelectCommand = Comando;
         SqlAdapter.SelectCommand.Parameters.Clear();
         SqlAdapter.SelectCommand.CommandText = StrSql;
         SqlAdapter.SelectCommand.CommandType = TipoComando;
@@ -115,9 +120,9 @@ public class SysUsuarios : IDisposable
             id = SqlAdapter.SelectCommand.Parameters["@idUsuario"].Value.ToString().ToEntero();
             ultimoUsuario = id;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            
         }
         return id;
     }
@@ -135,10 +140,7 @@ public class SysUsuarios : IDisposable
             SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
             SqlAdapter.SelectCommand.Parameters.Add("@idRol", SqlDbType.Int).Value = idRol;
             SqlAdapter.Fill(Data);
-            if (Data.Rows.Count > 0)
-            {
-                HayUsuarios = true;
-            }
+            HayUsuarios = Data.Rows.Count > 0;
         }
         catch (Exception)
         {

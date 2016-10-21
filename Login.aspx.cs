@@ -47,8 +47,8 @@ public partial class Login : PaginaWeb
             DataTable dtUsuarios = ObjUsuarios.getUsuarios();
             if (ObjUsuarios.HasUsuarios)
             {
-                DataRow RowUsuario = dtUsuarios.FiltroPrimero($"username={TxtUsuario.Text.Trim()} AND password={password}");
-                if (RowUsuario != null && RowUsuario["username"].Equals(usuario) && RowUsuario["password"].Equals(password))
+                DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
+                if (RowUsuario != null && RowUsuario["Username"].Equals(usuario) && RowUsuario["Contrasenia"].Equals(password))
                 {
                     AlertFeo("Usuario Correcto");
                 }
