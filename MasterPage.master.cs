@@ -15,6 +15,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             FormsAuthentication.RedirectToLoginPage();
         }
+        else
+        {
+            if (!IsPostBack)
+            {
+                if (Session["Usuario"] != null)
+                {
+                    Usuario user = (Usuario)Session["Usuario"];
+                    LtlUsuario.Text = user.Username;
+                }
+            }
+        }
     }
     private void initEvents()
     {
@@ -25,7 +36,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         try
         {
-            Usuario user = (Usuario)Session["Usuario"];
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
         }

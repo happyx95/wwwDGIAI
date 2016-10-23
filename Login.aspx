@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Sistema de administracion DGIAI</title>
+    <title>Sistema de administracion DGIAI</title>   
+    <link rel="shortcut icon" type="image/x-icon" href="icono.png" />
     <link rel="stylesheet" href="http://servicios.sonora.gob.mx/scripts/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://servicios.sonora.gob.mx/scripts/bootstrap/css/bootstrap-theme.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
@@ -26,6 +27,26 @@
             height: inherit;
             background: #f2f2f2;
         }
+        div.well {
+            height: 250px;
+        }
+
+        .Absolute-Center {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+            .Absolute-Center.is-Responsive {
+                width: 50%;
+                height: 50%;
+                min-width: 200px;
+                max-width: 400px;
+                padding: 40px;
+            }
     </style>
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/alertify.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/themes/default.css" />
@@ -85,13 +106,13 @@
                                     </div>
                                 </div>
                                 <br />
-                                <div class="form-group">
+                               <%-- <div class="form-group">
                                     <div class="row">
                                         <div style="text-align: left;" class="col-md-12">
                                             <asp:CheckBox ID="ChkTemporal" runat="server" CssClass="checkbox checkbox-inline" Text="Agregar Usuario" AutoPostBack="false" />
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12" style="text-align: center">

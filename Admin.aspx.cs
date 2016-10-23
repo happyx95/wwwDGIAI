@@ -10,7 +10,9 @@ public partial class Admin : PaginaWeb
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
 
-
+        }
     }
 }

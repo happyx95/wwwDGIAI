@@ -128,4 +128,8 @@ public class PaginaWeb : System.Web.UI.Page
         }
         return textoEncriptado;
     }
+    /// <summary>
+    /// Tiene las propiedades que tiene el usario actual
+    /// </summary>
+    public Usuario UsuarioActual { get { return ((Usuario) Session["Usuario"]) ?? new Usuario(); } }
 }
