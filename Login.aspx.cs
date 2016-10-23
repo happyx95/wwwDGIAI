@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Extensiones.Extensiones;
 using System.Data;
+using System.Web.Security;
 /// <summary>
 /// Pagina para acceder al sistema
 /// </summary>
@@ -16,14 +12,14 @@ public partial class Login : PaginaWeb
         initEvents();
         if (!IsPostBack)
         {
-
-
+            Form.DefaultButton = BtnIngresar.ClientID;
         }
     }
     /// <summary>
     /// Favor de iniciar los eventos de los componentes a utilizar desde aqui para evitar mezclar los eventos con el codigo html
     /// </summary>
-    private void initEvents() {
+    private void initEvents()
+    {
         BtnIngresar.Click += BtnIngresar_Click;
     }
 
@@ -36,10 +32,14 @@ public partial class Login : PaginaWeb
         //Agrega Usuarios 'Solo temporal'
         if (ChkTemporal.Checked)
         {
-           int idUsuario = ObjUsuarios.addUsuario(usuario, TxtPassword.Text.Trim(),"ninguno@nadie.com");
+            int idUsuario = ObjUsuarios.addUsuario(usuario, TxtPassword.Text.Trim(), "ninguno@nadie.com");
             if (idUsuario > 0)
             {
                 AlertFeo($"El nuevo usuario se grabo con el id = '{idUsuario}'");
+            }
+            else
+            {
+                AlertFeo($"Ocurrio un error al guardar el usuario");
             }
         }
         else
@@ -50,11 +50,27 @@ public partial class Login : PaginaWeb
                 DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
                 if (RowUsuario != null && RowUsuario["Username"].Equals(usuario) && RowUsuario["Contrasenia"].Equals(password))
                 {
-                    AlertFeo("Usuario Correcto");
+                    Usuario user = new Usuario()
+                    {
+                        idUsuario = RowUsuario["idUsuario"].ToString().ToEntero(),
+                        Username = RowUsuario["Username"].ToString(),
+                        Password = RowUsuario["Contrasenia"].ToString(),
+                        idRol = RowUsuario["idRol"].ToString().ToEntero(),
+                        Rol = RowUsuario["Rol"].ToString()
+                    };
+                    Session["Usuario"] = user;
+                    if (Session["Usuario"] != null)
+                    {
+                        FormsAuthentication.RedirectFromLoginPage(user.Username, true);
+                    }
+                }
+                else
+                {
+                    Notificar(this, "Usuario Incorrecto", TipoMensaje.Error);
                 }
             }
         }
-       
         ObjUsuarios.Dispose();
+        UpLogin.Update();
     }
 }

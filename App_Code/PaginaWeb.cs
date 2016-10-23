@@ -13,6 +13,41 @@ using System.Web.UI.WebControls;
 public class PaginaWeb : System.Web.UI.Page
 {
     private const string key = "sistemadgiai2016";
+    public enum TipoMensaje
+    {
+        Informacion, Error, Advertencia
+    }
+    /// <summary>
+    /// Muestra un mensaje al renderizar la pagina
+    /// </summary>
+    protected void Alert(Page pagina, string mensaje, string titulo = null)
+    {
+        string alerta = $"llamarAlertaInfo('{mensaje}','{titulo ?? "Informacion"}');";
+        ScriptManager.RegisterClientScriptBlock(pagina, GetType(), "alert", alerta, true);
+    }
+    /// <summary>
+    /// Muestra una notificacion en la parte inferior de la pagina
+    /// </summary>
+    /// <param name="pagina"></param>
+    /// <param name="mensaje"></param>
+    /// <param name="Tipo"></param>
+    protected void Notificar(Page pagina,string mensaje,TipoMensaje Tipo)
+    {
+        string alerta = "";
+        switch (Tipo)
+        {
+            case TipoMensaje.Informacion:
+                alerta = $"notificarInfo('{mensaje}');";
+                break;
+            case TipoMensaje.Error:
+                alerta = $"notificarError('{mensaje}')";
+                break;
+            case TipoMensaje.Advertencia:
+                alerta = $"notificarAdv('{mensaje}')";
+                break;
+        }
+        ScriptManager.RegisterClientScriptBlock(pagina, GetType(), "alert", alerta, true);
+    }
     /// <summary>
     /// Muestra un mensaje feo sin estilo
     /// </summary>
@@ -25,9 +60,8 @@ public class PaginaWeb : System.Web.UI.Page
     /// Ejecuta codigo javascript
     /// </summary>
     /// <param name="script"></param>
-    protected void RegistraScript(string script)
+    protected void RegistraScript(string script, string ScriptKey = "ScriptKey")
     {
-        const string ScriptKey = "ScriptKey";
         if (!ClientScript.IsStartupScriptRegistered(this.GetType(), ScriptKey))
             ClientScript.RegisterStartupScript(this.GetType(), ScriptKey, script, true);
     }

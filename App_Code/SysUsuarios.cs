@@ -110,15 +110,24 @@ public class SysUsuarios : IDisposable
         string pass = PaginaWeb.Encripta(password);
         try
         {
-            StoredProcedure("SP_sys_addUsuarios");
-            SqlAdapter.SelectCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
-            SqlAdapter.SelectCommand.Parameters.Add("@password", SqlDbType.VarChar).Value = pass;
-            SqlAdapter.SelectCommand.Parameters.Add("@correo", SqlDbType.VarChar).Value = correo;
-            SqlAdapter.SelectCommand.Parameters.Add("@idRol", SqlDbType.Int).Value = idRol;
-            SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Direction = ParameterDirection.Output;
-            SqlAdapter.Fill(Data);
-            id = SqlAdapter.SelectCommand.Parameters["@idUsuario"].Value.ToString().ToEntero();
-            ultimoUsuario = id;
+            DataRow RowUsuarios = getUsuarios().FiltroPrimero($"Username='{username}'");
+            //Comprueba si no se repite el nombre del usuario
+            if (RowUsuarios == null)
+            {
+                StoredProcedure("SP_sys_addUsuarios");
+                SqlAdapter.SelectCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
+                SqlAdapter.SelectCommand.Parameters.Add("@password", SqlDbType.VarChar).Value = pass;
+                SqlAdapter.SelectCommand.Parameters.Add("@correo", SqlDbType.VarChar).Value = correo;
+                SqlAdapter.SelectCommand.Parameters.Add("@idRol", SqlDbType.Int).Value = idRol;
+                SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Direction = ParameterDirection.Output;
+                SqlAdapter.Fill(Data);
+                id = SqlAdapter.SelectCommand.Parameters["@idUsuario"].Value.ToString().ToEntero();
+                ultimoUsuario = id;
+            }
+            else
+            {
+                return 0;
+            }
         }
         catch (Exception ex)
         {

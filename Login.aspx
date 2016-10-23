@@ -27,6 +27,14 @@
             background: #f2f2f2;
         }
     </style>
+    <link rel="stylesheet" href="http://alertifyjs.com/build/css/alertify.css" />
+    <link rel="stylesheet" href="http://alertifyjs.com/build/css/themes/default.css" />
+    <link rel="stylesheet" href="http://alertifyjs.com/css/normalize.min.css" />
+    <script defer="defer" src="http://alertifyjs.com/build/alertify.js"></script>
+    <script defer="defer" src="http://alertifyjs.com/scripts/script.js"></script>
+    <script defer="defer" src="http://alertifyjs.com/js/semantic.min.js"></script>
+    <script defer="defer" src="http://alertifyjs.com/js/jquery.mobile.custom.min.js"></script>
+    <script type="text/javascript" src="Scripts/Alertas.js"></script>
 </head>
 <body class="login">
     <div class="container-fluid_">
@@ -39,49 +47,62 @@
                 </div>
                 <img alt="Sistema de Administración DGIAI" class="pull-right" src="http://www.sonora.gob.mx/images/logo-sonora-2015.png" />
             </nav>
-            <div class="container-fluid" style="margin-top:7% !important; margin-bottom:7%!important;">
+            <div class="container-fluid" style="margin-top: 7% !important; margin-bottom: 7%!important;">
                 <div class="content">
                     <form id="form1" runat="server" class="login-form">
-                        <h3 class="form-title">Inicia sesion</h3>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <i class="fa fa-user" style="font-size: x-large"></i>
+                        <asp:ScriptManager ID="TSM" runat="server" EnableHistory="true" EnableSecureHistoryState="true" ScriptMode="Release" EnableScriptGlobalization="true" AsyncPostBackTimeout="600">
+                            <CompositeScript>
+                                <Scripts>
+                                </Scripts>
+                            </CompositeScript>
+                        </asp:ScriptManager>
+                        <asp:UpdatePanel ID="UpLogin" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <h3 class="form-title">Inicia sesion</h3>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-user" style="font-size: x-large"></i>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <asp:TextBox ID="TxtUsuario" runat="server" placeholder="Usuario" CssClass="form-control input-sm placeholder-no-fix"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RFVUsuario" runat="server" Display="None" ControlToValidate="TxtUsuario" ErrorMessage="El campo usuario es necesario" ValidationGroup="GrpLogin"></asp:RequiredFieldValidator>
+                                            <ajaxToolkit:ValidatorCalloutExtender ID="VCEUsuario" runat="server" HighlightCssClass="VCO" TargetControlID="RFVUsuario" Width="300px"></ajaxToolkit:ValidatorCalloutExtender>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-10">
-                                    <asp:TextBox ID="TxtUsuario" runat="server" placeholder="Usuario" CssClass="form-control input-sm placeholder-no-fix"></asp:TextBox>
+                                <br />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-key" style="font-size: x-large"></i>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <asp:TextBox ID="TxtPassword" TextMode="Password" runat="server" placeholder="Contraseña" CssClass="form-control input-sm placeholder-no-fix"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RFVPassword" runat="server" Display="None" ControlToValidate="TxtPassword" ErrorMessage="El campo contraseña es necesario" ValidationGroup="GrpLogin"></asp:RequiredFieldValidator>
+                                            <ajaxToolkit:ValidatorCalloutExtender ID="VCOPassword" runat="server" HighlightCssClass="VCO" TargetControlID="RFVPassword" Width="300px"></ajaxToolkit:ValidatorCalloutExtender>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <i class="fa fa-key" style="font-size: x-large"></i>
+                                <br />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div style="text-align: left;" class="col-md-12">
+                                            <asp:CheckBox ID="ChkTemporal" runat="server" CssClass="checkbox checkbox-inline" Text="Agregar Usuario" AutoPostBack="false" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-10">
-                                    <asp:TextBox ID="TxtPassword" TextMode="Password" runat="server" placeholder="Contraseña" CssClass="form-control input-sm placeholder-no-fix"></asp:TextBox>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align: center">
+                                            <asp:Button ID="BtnIngresar" runat="server" CssClass="btn btn-primary" Text="Ingresar" ValidationGroup="GrpLogin" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <div class="row">
-                                <div style="text-align:left;" class="col-md-12">
-                                    <asp:CheckBox ID="ChkTemporal" runat="server" CssClass="checkbox checkbox-inline" Text="Agregar Usuario" AutoPostBack="false" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: center">
-                                    <asp:Button ID="BtnIngresar" runat="server" CssClass="btn btn-primary" Text="Ingresar" />
-                                </div>
-                            </div>
-                            <div>
-                                
-                            </div>
-                        </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </form>
                 </div>
             </div>
