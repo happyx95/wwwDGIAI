@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Consulta.aspx.vb" Inherits="Consulta" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Consulta.aspx.cs" Inherits="Consulta" %>
 
 <!DOCTYPE html>
 
