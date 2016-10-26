@@ -1,7 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="CSS" runat="server">
     <style>
         div.well {
@@ -38,12 +36,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-md-6" style="text-align:center">
+                            <div class="col-md-6" style="text-align: center">
                                 <asp:HyperLink ID="HplVer" runat="server" Target="_blank" NavigateUrl="~/Convocatorias.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-eye fa-4x'></i>"></asp:HyperLink>
-                                 <h4>Ver</h4>
+                                <h4>Ver</h4>
                             </div>
-                            <div class="col-md-6" style="text-align:center">
-                                <asp:HyperLink ID="HyperLink1" runat="server" Target="_blank" NavigateUrl="~/CatConvocatorias.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-4x'></i>"></asp:HyperLink>
+                            <div class="col-md-6" style="text-align: center">
+                                <asp:HyperLink ID="HplNueva" runat="server" Target="_blank" NavigateUrl="~/CatConvocatorias.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-4x'></i>"></asp:HyperLink>
                                 <h4>Nueva</h4>
                             </div>
                         </div>
