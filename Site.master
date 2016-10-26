@@ -26,6 +26,9 @@
             background: #f2f2f2;
         }
     </style>
+    <link rel="stylesheet" href="Content/bootstrap.css" />
+    <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/Site.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/alertify.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/themes/default.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/css/normalize.min.css" />
