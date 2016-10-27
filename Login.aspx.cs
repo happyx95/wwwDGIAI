@@ -44,30 +44,31 @@ public partial class Login : PaginaWeb
         //}
         //else
         //{
-            DataTable dtUsuarios = ObjUsuarios.getUsuarios();
-            if (ObjUsuarios.HasUsuarios)
+        DataTable dtUsuarios = ObjUsuarios.getUsuarios();
+        if (ObjUsuarios.HasUsuarios)
+        {
+            DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
+            if (RowUsuario != null && RowUsuario["Username"].Equals(usuario) && RowUsuario["Contrasenia"].Equals(password))
             {
-                DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
-                if (RowUsuario != null && RowUsuario["Username"].Equals(usuario) && RowUsuario["Contrasenia"].Equals(password))
+                Usuario user = new Usuario()
                 {
-                    Usuario user = new Usuario()
-                    {
-                        idUsuario = RowUsuario["idUsuario"].ToString().ToEntero(),
-                        Username = RowUsuario["Username"].ToString(),
-                        idRol = RowUsuario["idRol"].ToString().ToEntero(),
-                        Rol = RowUsuario["Rol"].ToString()
-                    };
-                    Session["Usuario"] = user;
-                    if (Session["Usuario"] != null)
-                    {
-                        FormsAuthentication.RedirectFromLoginPage(user.Username, false);
-                    }
-                }
-                else
+                    idUsuario = RowUsuario["idUsuario"].ToString().ToEntero(),
+                    Username = RowUsuario["Username"].ToString(),
+                    idRol = RowUsuario["idRol"].ToString().ToEntero(),
+                    Rol = RowUsuario["Rol"].ToString()
+                };
+                Session["idUsuario"] = RowUsuario["idUsuario"].ToString().ToEntero();
+                Session["Usuario"] = user;
+                if (Session["Usuario"] != null)
                 {
-                    Notificar(this, "Usuario Incorrecto", TipoMensaje.Error);
+                    FormsAuthentication.RedirectFromLoginPage(user.Username, false);
                 }
             }
+            else
+            {
+                Notificar(this, "Usuario Incorrecto", TipoMensaje.Error);
+            }
+        }
         //}
         ObjUsuarios.Dispose();
         UpLogin.Update();

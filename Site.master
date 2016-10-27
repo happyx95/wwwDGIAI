@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="Content/bootstrap.css" />
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <link rel="stylesheet" href="Content/Site.css" />
+    <%--Alertas--%>
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/alertify.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/build/css/themes/default.css" />
     <link rel="stylesheet" href="http://alertifyjs.com/css/normalize.min.css" />
@@ -37,6 +38,31 @@
     <script defer="defer" src="http://alertifyjs.com/js/semantic.min.js"></script>
     <script defer="defer" src="http://alertifyjs.com/js/jquery.mobile.custom.min.js"></script>
     <script type="text/javascript" src="Scripts/Alertas.js"></script>
+    <%--DatePickers--%>
+    <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
+    <%--select2--%>
+    <%--  <link rel="stylesheet" href="https://select2.github.io/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/gh-pages.css">
+    <link rel="stylesheet" href="https://select2.github.io/css/s2-docs.css">
+    <script src="https://select2.github.io/dist/js/select2.full.js"></script>
+    <script src="https://select2.github.io/select2-bootstrap-theme/js/anchor.min.js"></script>
+    <script src="https://select2.github.io/vendor/js/jquery.min.js"></script>
+    <script src="https://select2.github.io/vendor/js/placeholders.jquery.min.js"></script>
+    <script src="https://select2.github.io/dist/js/i18n/es.js"></script>--%>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/gh-pages.css">
+    <link rel="stylesheet" href="https://select2.github.io/css/s2-docs.css">
+    <script src="https://select2.github.io/select2-bootstrap-theme/js/anchor.min.js"></script>
+    <link rel="stylesheet" href="https://select2.github.io/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
+    <script type="text/javascript" src="Scripts/select2.js"></script>
+    <script type="text/javascript" src="Scripts/select2.min.js"></script>
     <asp:ContentPlaceHolder ID="CSS" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -58,6 +84,8 @@
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Path="~/Scripts/select2.js" />
+                <asp:ScriptReference Path="~/Scripts/select2.min.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
             </Scripts>

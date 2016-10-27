@@ -1,6 +1,33 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="CatConvocatorias.aspx.cs" Inherits="CatConvocatorias" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="CSS" runat="Server">
+    <style>
+        .js-programmatic-open {
+        }
+        .js-example-programmatic {
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#Contenido_DdlPais").select2({
+                placeholder: "Seleccionar Pais"
+            });
+            var $example = $(".js-example-programmatic").select2();
+            var $exampleMulti = $(".js-example-programmatic-multi").select2();
+
+            $(".js-programmatic-set-val").on("click", function () { $example.val("CA").trigger("change"); });
+
+            $(".js-programmatic-open").on("click", function () { $example.select2("open"); });
+            $(".js-programmatic-close").on("click", function () { $example.select2("close"); });
+
+            $(".js-programmatic-init").on("click", function () { $example.select2(); });
+            $(".js-programmatic-destroy").on("click", function () { $example.select2("destroy"); });
+
+            $(".js-programmatic-multi-set-val").on("click", function () { $exampleMulti.val(["CA", "AL"]).trigger("change"); });
+            $(".js-programmatic-multi-clear").on("click", function () { $exampleMulti.val(null).trigger("change"); });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="row" style="vertical-align: central; display: inline">
@@ -58,7 +85,14 @@
                                     </div>
                                     <div class="form-group form-inline">
                                         <label class="col-lg-2 control-label" for="<%= DdlPais.ClientID %>">Pais:</label>
-                                        <asp:DropDownList ID="DdlPais" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <div class="input-group select2">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default btn-sm btn-circle js-programmatic-open" type="button" data-select2-open="<%= DdlPais.ClientID %>">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </span>
+                                            <asp:DropDownList ID="DdlPais" runat="server" DataTextField="Pais" DataValueField="idPais" CssClass="form-control form-control input-sm js-example-programmatic" Width="60%"></asp:DropDownList>
+                                        </div>
                                     </div>
                                     <div class="row" style="text-align: center">
                                         <label>Vigencia</label>
@@ -74,8 +108,8 @@
                                                             <asp:LinkButton ID="imgCalendario" class="btn default " Text="<i class='fa fa-calendar'></i>" runat="server"></asp:LinkButton>
                                                         </span>
                                                         <ajaxToolkit:MaskedEditExtender ID="MEEFechaI" runat="server" TargetControlID="txtFechaI" Mask="99/99/9999" MaskType="Date" DisplayMoney="Left" AcceptNegative="Left"></ajaxToolkit:MaskedEditExtender>
-                                                        <ajaxToolkit:CalendarExtender runat="server" ID="Calendario" TargetControlID="txtFechaI" PopupButtonID="ImgCalendario" PopupPosition="BottomRight" Enabled="True"></ajaxToolkit:CalendarExtender>
-                                                        <asp:RequiredFieldValidator ID="rfvFechaI" runat="server" ControlToValidate="txtFechaI" Display="None" ErrorMessage="El campo <b>''Fecha Inicial''</b> es requerido por la aplicación, por favor ingrese una fecha." ValidationGroup="Valida"></asp:RequiredFieldValidator>
+                                                        <ajaxToolkit:CalendarExtender runat="server" ID="Calendario" TargetControlID="txtFechaI" PopupButtonID="ImgCalendario" PopupPosition="BottomRight" Enabled="True" Format="dd/MM/yyyy"></ajaxToolkit:CalendarExtender>
+                                                        <asp:RequiredFieldValidator ID="rfvFechaI" runat="server" ControlToValidate="txtFechaI" Display="None" ErrorMessage="El campo <b>''Desde''</b> es requerido por la aplicación, por favor ingrese una fecha." ValidationGroup="Valida"></asp:RequiredFieldValidator>
                                                         <asp:CompareValidator ID="cvFechaI" runat="server" ControlToValidate="txtFechaI" Display="None" ErrorMessage="El campo <b>''Fecha Inicial''</b> no tienes el formato correcto, por favor intente de nuevo con el siguiente formato: (dd/mm/yyyy)." Operator="DataTypeCheck" Type="Date" ValidationGroup="Valida"></asp:CompareValidator>
                                                         <ajaxToolkit:ValidatorCalloutExtender ID="vcoFfvFI" runat="server" HighlightCssClass="vco" TargetControlID="rfvFechaI" Width="350px"></ajaxToolkit:ValidatorCalloutExtender>
                                                         <ajaxToolkit:ValidatorCalloutExtender ID="vcoCvFI" runat="server" HighlightCssClass="vco" TargetControlID="cvFechaI" Width="350px"></ajaxToolkit:ValidatorCalloutExtender>
@@ -89,8 +123,8 @@
                                                             <asp:LinkButton ID="imgCalendarioF" class="btn default " Text="<i class='fa fa-calendar'></i>" runat="server"></asp:LinkButton>
                                                         </span>
                                                         <ajaxToolkit:MaskedEditExtender ID="MEEFechaF" runat="server" TargetControlID="txtFechaF" Mask="99/99/9999" MaskType="Date" DisplayMoney="Left" AcceptNegative="Left"></ajaxToolkit:MaskedEditExtender>
-                                                        <ajaxToolkit:CalendarExtender runat="server" ID="Calendario2" TargetControlID="txtFechaF" PopupButtonID="imgCalendarioF" PopupPosition="BottomRight" Enabled="True"></ajaxToolkit:CalendarExtender>
-                                                        <asp:RequiredFieldValidator ID="rfvFechaF" runat="server" ControlToValidate="txtFechaF" Display="None" ErrorMessage="El campo <b>''Fecha Final''</b> es requerido por la aplicación, por favor ingrese una fecha." ValidationGroup="Valida"></asp:RequiredFieldValidator>
+                                                        <ajaxToolkit:CalendarExtender runat="server" ID="Calendario2" TargetControlID="txtFechaF" PopupButtonID="imgCalendarioF" PopupPosition="BottomRight" Enabled="True" Format="dd/MM/yyyy"></ajaxToolkit:CalendarExtender>
+                                                        <asp:RequiredFieldValidator ID="rfvFechaF" runat="server" ControlToValidate="txtFechaF" Display="None" ErrorMessage="El campo <b>''Hasta''</b> es requerido por la aplicación, por favor ingrese una fecha." ValidationGroup="Valida"></asp:RequiredFieldValidator>
                                                         <asp:CompareValidator ID="cvFechaF" runat="server" ControlToValidate="txtFechaF" Display="None" ErrorMessage="El campo <b>''Fecha Final''</b> no tienes el formato correcto, por favor intente de nuevo con el siguiente formato: (dd/mm/yyyy)." Operator="DataTypeCheck" Type="Date" ValidationGroup="Valida"></asp:CompareValidator>
                                                         <ajaxToolkit:ValidatorCalloutExtender ID="vcoRfvFF" runat="server" HighlightCssClass="vco" TargetControlID="rfvFechaF" Width="350px"></ajaxToolkit:ValidatorCalloutExtender>
                                                         <ajaxToolkit:ValidatorCalloutExtender ID="vcoCvFF" runat="server" HighlightCssClass="vco" TargetControlID="cvFechaF" Width="350px"></ajaxToolkit:ValidatorCalloutExtender>
