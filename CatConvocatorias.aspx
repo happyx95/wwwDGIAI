@@ -2,38 +2,60 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="CSS" runat="Server">
     <style>
-        .js-programmatic-open {
-        }
-        .js-example-programmatic {
+        .tam {
+            display: inline;
+            width: 500px !important;
         }
     </style>
+    <script type="text/javascript" src="Scripts/plugins/datatable.js"></script>
+    <script type="text/javascript" src="Scripts/plugins/datatables/all.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $("#Contenido_DdlPais").select2({
-                placeholder: "Seleccionar Pais"
+            $(".select2me").select2({
+                tags: "true",
+                allowClear: true
+
             });
-            var $example = $(".js-example-programmatic").select2();
-            var $exampleMulti = $(".js-example-programmatic-multi").select2();
-
-            $(".js-programmatic-set-val").on("click", function () { $example.val("CA").trigger("change"); });
-
-            $(".js-programmatic-open").on("click", function () { $example.select2("open"); });
-            $(".js-programmatic-close").on("click", function () { $example.select2("close"); });
-
-            $(".js-programmatic-init").on("click", function () { $example.select2(); });
-            $(".js-programmatic-destroy").on("click", function () { $example.select2("destroy"); });
-
-            $(".js-programmatic-multi-set-val").on("click", function () { $exampleMulti.val(["CA", "AL"]).trigger("change"); });
-            $(".js-programmatic-multi-clear").on("click", function () { $exampleMulti.val(null).trigger("change"); });
         });
+        
+        function TamañoVentana() {
+            var h = window.innerHeight
+                   || document.documentElement.clientHeight
+                   || document.getElementsByTagName('body')[0].clientHeight;
+            var w = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.getElementsByTagName('body')[0].clientWidth;
+
+            return { width: w, height: h };
+        }
+        function OrdenarGV() {
+            var Tam = TamañoVentana();
+            var Alto = Tam.height - 270;
+            if (Alto < 100) {
+                Alto = 100;
+            }
+            $('#Contenido_GvConvocatorias').DataTable({
+                scrollY: Alto + 'px',
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                retrieve: true,
+                destroy: true,
+                info: false
+            });
+        }
+        function SetValue(Hidden, Value) {
+            document.getElementById(Hidden).value = Value;
+        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="row" style="vertical-align: central; display: inline">
         <div class="col-md-6" style="text-align: left;">
             <div class="form-group form-inline">
-                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="#" data-toggle="modal" data-target="#DivConvocatoria" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
+                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="javascript:$('#DivConvocatoria').modal('show');$('#Titulo').text('Agregar Convocatoria');SetValue('HdnModalidad', 'A');" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
                 <label class="control-label">Nueva convocatoria</label>
             </div>
         </div>
@@ -47,6 +69,7 @@
             <asp:UpdatePanel ID="UpConvocatorias" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
+                        DataKeyNames="idConvocatoria,Convocatoria,idPais,FechaI,FechaF,Duracion,Link,Info"
                         CssClass="table table-hover table-responsive"
                         AutoGenerateColumns="false">
                         <Columns>
@@ -57,8 +80,8 @@
                             <asp:BoundField HeaderText="Estado" DataField="Estado" />
                             <asp:TemplateField HeaderText="Opciones">
                                 <ItemTemplate>
-                                    <asp:LinkButton runat="server" CssClass="btn btn-circle btn-sm btn-success " Text="<i class='fa fa-pencil'></i>"></asp:LinkButton>
-                                    <asp:LinkButton runat="server" CssClass="btn btn-circle btn-sm btn-danger " Text="<i class='fa fa-trash-o'></i>"></asp:LinkButton>
+                                    <asp:LinkButton ID="LnkEditar" runat="server" OnClick="LnkEditar_Click" CssClass="btn btn-circle btn-sm btn-success " Text="<i class='fa fa-pencil'></i>"></asp:LinkButton>
+                                    <asp:LinkButton ID="LnkDelete" runat="server" OnClick="LnkDelete_Click" CssClass="btn btn-circle btn-sm btn-danger " Text="<i class='fa fa-trash-o'></i>"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -74,24 +97,24 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <asp:Label ID="LblTitulo" runat="server" CssClass="control-label" Text="Agregar Convocatoria"></asp:Label>
+                            <h4 class="modal-title" id="Titulo">Agregar Convocatoria</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-inline">
                                         <label class="col-lg-2 control-label " for="<%= TxtNombre.ClientID %>">Nombre:</label>
-                                        <asp:TextBox ID="TxtNombre" runat="server" CssClass="form-control input-sm"></asp:TextBox>
+                                        <asp:TextBox ID="TxtNombre" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                                     </div>
                                     <div class="form-group form-inline">
                                         <label class="col-lg-2 control-label" for="<%= DdlPais.ClientID %>">Pais:</label>
-                                        <div class="input-group select2">
+                                        <div class="input-group">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-sm btn-circle js-programmatic-open" type="button" data-select2-open="<%= DdlPais.ClientID %>">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </span>
-                                            <asp:DropDownList ID="DdlPais" runat="server" DataTextField="Pais" DataValueField="idPais" CssClass="form-control form-control input-sm js-example-programmatic" Width="60%"></asp:DropDownList>
+                                            <asp:DropDownList ID="DdlPais" runat="server" DataTextField="Pais" DataValueField="idPais" CssClass="form-control form-control input-sm js-example-programmatic" Width="250px"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row" style="text-align: center">
@@ -136,27 +159,55 @@
                                     <br />
                                     <div class="form-group form-inline">
                                         <label class="col-lg-2 control-label" for="<%= DdlDuracion.ClientID %>">Duración:</label>
-                                        <asp:DropDownList ID="DdlDuracion" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <asp:DropDownList ID="DdlDuracion" runat="server" CssClass="form-control input-sm tam">
+                                            <asp:ListItem Text="1 Año" Value="1 año"></asp:ListItem>
+                                            <asp:ListItem Text="2 Años" Value="2 años"></asp:ListItem>
+                                            <asp:ListItem Text="3 Años" Value="3 años"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
                                     <div class="form-group form-inline">
                                         <label class="col-lg-2 control-label " for="<%= TxtLink.ClientID %>">Link:</label>
-                                        <asp:TextBox ID="TxtLink" runat="server" CssClass="form-control input-sm"></asp:TextBox>
+                                        <asp:TextBox ID="TxtLink" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                                     </div>
                                     <div class="form-group form-horizontal">
                                         <label class="control-label " for="<%= TxtInfo.ClientID %>">Información Adicional:</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <asp:TextBox ID="TxtInfo" TextMode="MultiLine" runat="server" CssClass="form-control input-sm col-lg-10"></asp:TextBox>
+                                            <asp:TextBox ID="TxtInfo" TextMode="MultiLine" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-success" Text="Agregar" ValidationGroup="GrpConvocatoria" />
+                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-success" Text="Aceptar" ValidationGroup="GrpConvocatoria" />
                             <button id="BtnCancelar" runat="server" type="button" class="btn default" data-dismiss="modal">Cancelar</button>
                         </div>
+                        <asp:HiddenField ID="HdnModalidad" runat="server" Value="A" ClientIDMode="Static" />
+                        <asp:HiddenField ID="HdnID" runat="server" Value="-1" ClientIDMode="Static" />
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+    <div id="DivEliminar" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <asp:UpdatePanel ID="UpEliminar" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Eliminar</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>¿Desea eliminar la convocatoria?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button ID="BtnEliminar" runat="server" class="btn btn-danger" Text="Eliminar" ValidationGroup="GrpConvocatoria" />
+                            <button type="button" class="btn default" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <asp:HiddenField ID="HdnIDEliminar" runat="server" Value="-1" ClientIDMode="Static" />
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

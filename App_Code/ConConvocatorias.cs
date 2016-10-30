@@ -99,14 +99,13 @@ public class ConConvocatorias
     /// Agrega una nueva convocatoria a la base de datos y regresa true si la convocatoria fue agregada
     /// </summary>
     /// <returns></returns>
-    public bool addConvocatoria(int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, int idUsuario, string Info)
+    public bool addConvocatoria(string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, int idUsuario, string Info)
     {
         bool retorno = false;
         try
         {
-            //Comprueba si no se repite el nombre del usuario
-
             StoredProcedure("SP_Con_addConvocatorias");
+            SqlAdapter.SelectCommand.Parameters.Add("@Convocatoria", SqlDbType.VarChar).Value = convocatoria;
             SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
             SqlAdapter.SelectCommand.Parameters.Add("@FechaI", SqlDbType.Date).Value = FechaI.ToShortDateString();
             SqlAdapter.SelectCommand.Parameters.Add("@FechaF", SqlDbType.Date).Value = FechaF.ToShortDateString();
@@ -123,9 +122,76 @@ public class ConConvocatorias
         }
         return retorno;
     }
-    
+    /// <summary>
+    /// Actualiza una convocatoria ya existente
+    /// </summary>
+    /// <param name="idConvocatoria"></param>
+    /// <param name="convocatoria"></param>
+    /// <param name="idPais"></param>
+    /// <param name="FechaI"></param>
+    /// <param name="FechaF"></param>
+    /// <param name="Duracion"></param>
+    /// <param name="Link"></param>
+    /// <param name="Estado"></param>
+    /// <param name="Info"></param>
+    /// <returns></returns>
+    public bool updateConvocatoria(int idConvocatoria, string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, string Info)
+    {
+        bool retorno = false;
+        try
+        {
+            StoredProcedure("SP_Con_updateConvocatorias");
+            SqlAdapter.SelectCommand.Parameters.Add("@idConvocatoria", SqlDbType.Int).Value = idConvocatoria;
+            SqlAdapter.SelectCommand.Parameters.Add("@Convocatoria", SqlDbType.VarChar).Value = convocatoria;
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.SelectCommand.Parameters.Add("@FechaI", SqlDbType.Date).Value = FechaI.ToShortDateString();
+            SqlAdapter.SelectCommand.Parameters.Add("@FechaF", SqlDbType.Date).Value = FechaF.ToShortDateString();
+            SqlAdapter.SelectCommand.Parameters.Add("@Duracion", SqlDbType.VarChar).Value = Duracion;
+            SqlAdapter.SelectCommand.Parameters.Add("@Link", SqlDbType.VarChar).Value = Link;
+            SqlAdapter.SelectCommand.Parameters.Add("@Estado", SqlDbType.Bit).Value = Estado;
+            SqlAdapter.SelectCommand.Parameters.Add("@Info", SqlDbType.VarChar).Value = Info;
+            SqlAdapter.Fill(Data);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    public bool deleteConvocatoria(int idConvocatoria)
+    {
+        bool retorno = false;
+        try
+        {
+            StoredProcedure("SP_Con_deleteConvocatorias");
+            SqlAdapter.SelectCommand.Parameters.Add("@idConvocatoria", SqlDbType.Int).Value = idConvocatoria;
+            SqlAdapter.Fill(Data);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    public DataTable getConvocatorias(int idPais, int idUsuario)
+    {
+        try
+        {
+            StoredProcedure("SP_Con_getConvocatorias");
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+            SqlAdapter.Fill(Data);
+        }
+        catch (Exception ex)
+        {
+            return new DataTable();
+        }
+        return Data;
+    }
+
+
     #endregion
-   
+
     #region C E R R A R  -  C O N E X I O N E S
 
     protected void CerrarConexiones(bool disposing)

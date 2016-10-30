@@ -95,7 +95,7 @@ public class ConPaises
 
     #region P A I S E S - D A T A B A S E
     /// <summary>
-    /// Agrega una nueva convocatoria a la base de datos y regresa true si la convocatoria fue agregada
+    /// Retorna la lista de paises registrados en la base de datos
     /// </summary>
     /// <returns></returns>
     public DataTable getPaises(int idPais = -1)

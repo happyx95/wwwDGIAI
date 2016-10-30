@@ -25,7 +25,7 @@ public partial class Login : PaginaWeb
 
     private void BtnIngresar_Click(object sender, EventArgs e)
     {
-        SysUsuarios ObjUsuarios = new SysUsuarios();
+        var ObjUsuarios = new SysUsuarios();
         string usuario, password;
         usuario = TxtUsuario.Text.Trim();
         password = Encripta(TxtPassword.Text.Trim());
@@ -57,7 +57,6 @@ public partial class Login : PaginaWeb
                     idRol = RowUsuario["idRol"].ToString().ToEntero(),
                     Rol = RowUsuario["Rol"].ToString()
                 };
-                Session["idUsuario"] = RowUsuario["idUsuario"].ToString().ToEntero();
                 Session["Usuario"] = user;
                 if (Session["Usuario"] != null)
                 {

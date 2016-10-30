@@ -66,6 +66,16 @@ public class PaginaWeb : System.Web.UI.Page
             ClientScript.RegisterStartupScript(this.GetType(), ScriptKey, script, true);
     }
     /// <summary>
+    /// Ejecuta codigo javascrip que dentro de un UpdatePanel
+    /// </summary>
+    /// <param name="pagina"></param>
+    /// <param name="script"></param>
+    /// <param name="ScriptKey"></param>
+    protected void RegistraScript(Page pagina,string script, string ScriptKey = "ScriptKey")
+    {
+        ScriptManager.RegisterClientScriptBlock(pagina, GetType(), ScriptKey, script, true);
+    }
+    /// <summary>
     /// Encripta un string y retorna un chorizote como valor nuevo
     /// </summary>
     /// <param name="texto"></param>
@@ -131,5 +141,5 @@ public class PaginaWeb : System.Web.UI.Page
     /// <summary>
     /// Tiene las propiedades que tiene el usario actual
     /// </summary>
-    public Usuario UsuarioActual { get { return ((Usuario) Session["Usuario"]) ?? new Usuario(); } }
+    public Usuario CurrentUser { get { return ((Usuario) Session["Usuario"]) ?? new Usuario(); } }
 }
