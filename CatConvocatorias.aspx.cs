@@ -42,16 +42,23 @@ public partial class CatConvocatorias : PaginaWeb
 
     private void CargaDatos()
     {
-        var ObjPaises = new ConPaises();
-        var ObjConvocatorias = new ConConvocatorias(ObjPaises.startTransactionSQL());
+        var ObjDatos = new ConDatos();
+        var ObjConvocatorias = new ConConvocatorias(ObjDatos.startTransactionSQL());
 
-        DdlPais.DataSource = ObjPaises.getPaises();
+        DdlPais.DataSource = ObjDatos.getPaises();
         DdlPais.DataBind();
+
+        DdlAreas.DataSource = ObjDatos.getAreas();
+        DdlAreas.DataBind();
+
+        DdlNivel.DataSource = ObjDatos.getNiveles();
+        DdlNivel.DataBind();
 
         GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
         GvConvocatorias.DataBind();
-        ObjPaises.Commit();
-        ObjPaises.Dispose();
+
+        ObjDatos.Commit();
+        ObjDatos.Dispose();
         UpConvocatorias.Update();
         //OrdenaDatos();
     }
@@ -77,7 +84,9 @@ public partial class CatConvocatorias : PaginaWeb
         string link = TxtLink.Text.Trim();
         bool estado = true;
         string info = TxtInfo.Text;
-        if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info))
+        int idArea = DdlAreas.SelectedValue.ToEntero();
+        int idNivel = DdlNivel.SelectedValue.ToEntero();
+        if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info,idArea,idNivel))
         {
             Notificar(this, "Convocatoria agregada correctamente", TipoMensaje.Informacion);
             GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
@@ -100,7 +109,9 @@ public partial class CatConvocatorias : PaginaWeb
         string link = TxtLink.Text.Trim();
         bool estado = true;
         string info = TxtInfo.Text;
-        if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info))
+        int idArea = DdlAreas.SelectedValue.ToEntero();
+        int idNivel = DdlNivel.SelectedValue.ToEntero();
+        if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info,idArea,idNivel))
         {
             Notificar(this, "Convocatoria editada correctamente", TipoMensaje.Informacion);
             GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
@@ -144,6 +155,8 @@ public partial class CatConvocatorias : PaginaWeb
         DdlDuracion.SelectedValue = GvRow.DataKey("Duracion");
         TxtLink.Text = GvRow.DataKey("Link");
         TxtInfo.Text = GvRow.DataKey("Info");
+        DdlNivel.SelectedValue = GvRow.DataKey("idNivel");
+        DdlAreas.SelectedValue = GvRow.DataKey("idArea");
         UpDivConvocatoria.Update();
         RegistraScript(this, "$('#DivConvocatoria').modal('show');$('#Titulo').text('Editar Convocatoria');");
     }

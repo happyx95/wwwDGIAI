@@ -99,7 +99,7 @@ public class ConConvocatorias
     /// Agrega una nueva convocatoria a la base de datos y regresa true si la convocatoria fue agregada
     /// </summary>
     /// <returns></returns>
-    public bool addConvocatoria(string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, int idUsuario, string Info)
+    public bool addConvocatoria(string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, int idUsuario, string Info,int idArea,int idNivel)
     {
         bool retorno = false;
         try
@@ -114,6 +114,8 @@ public class ConConvocatorias
             SqlAdapter.SelectCommand.Parameters.Add("@Estado", SqlDbType.Bit).Value = Estado;
             SqlAdapter.SelectCommand.Parameters.Add("@Info", SqlDbType.VarChar).Value = Info;
             SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivel", SqlDbType.Int).Value = idNivel;
             SqlAdapter.Fill(Data);
             retorno = true;
         }
@@ -135,7 +137,7 @@ public class ConConvocatorias
     /// <param name="Estado"></param>
     /// <param name="Info"></param>
     /// <returns></returns>
-    public bool updateConvocatoria(int idConvocatoria, string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, string Info)
+    public bool updateConvocatoria(int idConvocatoria, string convocatoria, int idPais, DateTime FechaI, DateTime FechaF, string Duracion, string Link, bool Estado, string Info,int idArea,int idNivel)
     {
         bool retorno = false;
         try
@@ -150,6 +152,8 @@ public class ConConvocatorias
             SqlAdapter.SelectCommand.Parameters.Add("@Link", SqlDbType.VarChar).Value = Link;
             SqlAdapter.SelectCommand.Parameters.Add("@Estado", SqlDbType.Bit).Value = Estado;
             SqlAdapter.SelectCommand.Parameters.Add("@Info", SqlDbType.VarChar).Value = Info;
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivel", SqlDbType.Int).Value = idNivel;
             SqlAdapter.Fill(Data);
             retorno = true;
         }

@@ -69,7 +69,7 @@
             <asp:UpdatePanel ID="UpConvocatorias" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
-                        DataKeyNames="idConvocatoria,Convocatoria,idPais,FechaI,FechaF,Duracion,Link,Info"
+                        DataKeyNames="idConvocatoria,Convocatoria,idPais,FechaI,FechaF,Duracion,Link,Info,idArea,idNivel"
                         CssClass="table table-hover table-responsive"
                         AutoGenerateColumns="false">
                         <Columns>
@@ -77,6 +77,8 @@
                             <asp:BoundField HeaderText="Vigencia" DataField="Vigencia" />
                             <asp:BoundField HeaderText="País" DataField="Pais" />
                             <asp:BoundField HeaderText="Duración de Intercambio" DataField="Duracion" />
+                            <asp:BoundField HeaderText="Area de Estudio" DataField="AreaEstudio" />
+                            <asp:BoundField HeaderText="Nivel" DataField="Nivel" />
                             <asp:BoundField HeaderText="Estado" DataField="Estado" />
                             <asp:TemplateField HeaderText="Opciones">
                                 <ItemTemplate>
@@ -114,7 +116,7 @@
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </span>
-                                            <asp:DropDownList ID="DdlPais" runat="server" DataTextField="Pais" DataValueField="idPais" CssClass="form-control form-control input-sm js-example-programmatic" Width="250px"></asp:DropDownList>
+                                            <asp:DropDownList ID="DdlPais" runat="server" DataTextField="Pais" DataValueField="idPais" CssClass="form-control form-control select2me input-sm js-example-programmatic" Width="250px"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row" style="text-align: center">
@@ -163,6 +165,16 @@
                                             <asp:ListItem Text="1 Año" Value="1 año"></asp:ListItem>
                                             <asp:ListItem Text="2 Años" Value="2 años"></asp:ListItem>
                                             <asp:ListItem Text="3 Años" Value="3 años"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label class="col-lg-2 control-label" for="<%= DdlNivel.ClientID %>">Nivel:</label>
+                                        <asp:DropDownList ID="DdlNivel" runat="server" DataValueField="idNivel" DataTextField="Nivel" CssClass="form-control input-sm tam">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label class="col-lg-2 control-label" for="<%= DdlAreas.ClientID %>">Area:</label>
+                                        <asp:DropDownList ID="DdlAreas" DataTextField="AreaEstudio" DataValueField="idArea" runat="server" CssClass="form-control input-sm tam">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group form-inline">

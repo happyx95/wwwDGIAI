@@ -10,7 +10,7 @@ using Extensiones.Extensiones;
 /// <summary>
 /// Summary description for ConPaises
 /// </summary>
-public class ConPaises
+public class ConDatos
 {
     #region A T R I B U T O S 
     private SqlConnection SqlConexion;
@@ -23,7 +23,7 @@ public class ConPaises
 
     #region F U N C I O N E S   Y   C O N S T R U C T O R
 
-    public ConPaises(SqlTransaction TransaccionCompartida = null)
+    public ConDatos(SqlTransaction TransaccionCompartida = null)
     {
         if (TransaccionCompartida == null)
         {
@@ -115,6 +115,42 @@ public class ConPaises
 
     #endregion
 
+    #region "N I V E L E S - D A T A B A S E"
+    public DataTable getNiveles(int idNivel = -1)
+    {
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("SP_Con_getNiveles");
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivel", SqlDbType.Int).Value = idNivel;
+            SqlAdapter.Fill(dt);
+        }
+        catch (Exception ex)
+        {
+        }
+        return dt;
+    }
+    #endregion
+
+    #region "A R E A S - D A T A B A S E"
+    public DataTable getAreas(int idArea = -1)
+    {
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("SP_Con_getAreas");
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.Fill(dt);
+        }
+        catch (Exception ex)
+        {
+        }
+        return dt;
+    }
+    #endregion
+
     #region C E R R A R  -  C O N E X I O N E S
 
     protected void CerrarConexiones(bool disposing)
@@ -158,6 +194,5 @@ public class ConPaises
     }
 
     #endregion
-
 
 }
