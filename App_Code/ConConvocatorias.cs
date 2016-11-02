@@ -193,6 +193,23 @@ public class ConConvocatorias
         return Data;
     }
 
+    public DataTable getConsultaConvocatorias(int idPais, int idNivel,int idArea)
+    {
+        try
+        {
+            StoredProcedure("SP_Con_ConsultaConvocatorias");
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivel", SqlDbType.Int).Value = idNivel;
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.Fill(Data);
+        }
+        catch (Exception ex)
+        {
+            return new DataTable();
+        }
+        return Data;
+    }
+
 
     #endregion
 
