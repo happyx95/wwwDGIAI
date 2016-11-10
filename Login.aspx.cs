@@ -30,21 +30,21 @@ public partial class Login : PaginaWeb
         usuario = TxtUsuario.Text.Trim();
         password = Encripta(TxtPassword.Text.Trim());
         //Agrega Usuarios 'Solo temporal'
-        //if (ChkTemporal.Checked)
-        //{
-        //    int idUsuario = ObjUsuarios.addUsuario(usuario, TxtPassword.Text.Trim(), "ninguno@nadie.com");
-        //    if (idUsuario > 0)
-        //    {
-        //        AlertFeo($"El nuevo usuario se grabo con el id = '{idUsuario}'");
-        //    }
-        //    else
-        //    {
-        //        AlertFeo($"Ocurrio un error al guardar el usuario");
-        //    }
-        //}
-        //else
-        //{
-        DataTable dtUsuarios = ObjUsuarios.getUsuarios();
+        if (ChkTemporal.Checked)
+        {
+            int idUsuario = ObjUsuarios.addUsuario(usuario, TxtPassword.Text.Trim(), "ninguno@nadie.com");
+            if (idUsuario > 0)
+            {
+                AlertFeo($"El nuevo usuario se grabo con el id = '{idUsuario}'");
+            }
+            else
+            {
+                AlertFeo($"Ocurrio un error al guardar el usuario");
+            }
+        }
+        else
+        {
+            DataTable dtUsuarios = ObjUsuarios.getUsuarios();
         if (ObjUsuarios.HasUsuarios)
         {
             DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
@@ -68,7 +68,7 @@ public partial class Login : PaginaWeb
                 Notificar(this, "Usuario Incorrecto", TipoMensaje.Error);
             }
         }
-        //}
+        }
         ObjUsuarios.Dispose();
         UpLogin.Update();
     }
