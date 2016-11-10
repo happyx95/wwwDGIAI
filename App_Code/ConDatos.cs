@@ -151,6 +151,29 @@ public class ConDatos
     }
     #endregion
 
+    #region "C O N S U L T A S - D A T A B A S E"
+    public bool addConsulta(int idPais,int idArea,int idNivelActual,int idNivelInteres,string sexo,int edad) {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("SP_Con_addConsulta");
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivelActual", SqlDbType.Int).Value = idNivelActual;
+            SqlAdapter.SelectCommand.Parameters.Add("@idNivelInteres", SqlDbType.Int).Value = idNivelInteres;
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.SelectCommand.Parameters.Add("@Edad", SqlDbType.Int).Value = edad;
+            SqlAdapter.SelectCommand.Parameters.Add("@Sexo", SqlDbType.VarChar).Value = sexo;
+            SqlAdapter.Fill(dt);
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    #endregion
+
     #region C E R R A R  -  C O N E X I O N E S
 
     protected void CerrarConexiones(bool disposing)
