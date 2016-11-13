@@ -16,7 +16,7 @@ public partial class CatConvocatorias : PaginaWeb
         {
             CargaDatos();
         }
-        RegistraScript("$(document).ready(function () {$('.select2me').select2({tags: 'true',allowClear: true});});");
+       // RegistraScript("$(document).ready(function () {$('.select2me').select2({tags: 'true',allowClear: true});});");
     }
     private void initEvents()
     {
@@ -60,7 +60,7 @@ public partial class CatConvocatorias : PaginaWeb
         ObjDatos.Commit();
         ObjDatos.Dispose();
         UpConvocatorias.Update();
-        //OrdenaDatos();
+       // OrdenaDatos();
     }
     protected void BtnConvocatoria_Click(object sender, EventArgs e)
     {

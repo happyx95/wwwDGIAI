@@ -12,15 +12,23 @@ namespace localhost
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkID=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
-                            "~/Scripts/WebForms/WebForms.js",
-                            "~/Scripts/WebForms/WebUIValidation.js",
-                            "~/Scripts/WebForms/MenuStandards.js",
-                            "~/Scripts/WebForms/Focus.js",
-                            "~/Scripts/WebForms/GridView.js",
-                            "~/Scripts/WebForms/DetailsView.js",
-                            "~/Scripts/WebForms/TreeView.js",
-                            "~/Scripts/WebForms/WebParts.js"));
+        //    bundles.Add(new ScriptBundle("~/bundles/DataTables").Include(
+        //    "~/Scripts/DataTables/dataTables.bootstrap.js",
+        //    "~/Scripts/DataTables/dataTables.scroller.min.js",
+        //    "~/Scripts/DataTables/jquery.dataTables.js"
+        //));
+          //  bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
+          //     "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxComponentModel.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxGlobalization.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxHistory.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxNetwork.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxSerialization.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js",
+          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebServices.js"
+          //));
 
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",
@@ -31,17 +39,18 @@ namespace localhost
                             "~/Scripts/WebForms/DetailsView.js",
                             "~/Scripts/WebForms/TreeView.js",
                             "~/Scripts/WebForms/WebParts.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
+            "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
+            "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
+            "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
+            "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
             // Order is very important for these files to work, they have explicit dependencies
-            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-            "~/Scripts/DataTables/dataTables.bootstrap.js",
-            "~/Scripts/DataTables/dataTables.scroller.min.js",
-            "~/Scripts/DataTables/jquery.dataTables.js"
-            ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-            "~/Content/bootstrap.css",
-            "~/Content/site.css",
-            "~/Content/DataTables/css/dataTables.bootstrap.css"));
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //"~/Content/bootstrap.css",
+            //"~/Content/site.css",
+            //"~/Content/DataTables/css/dataTables.bootstrap.css"));
 
             // Use the Development version of Modernizr to develop with and learn from. Then, when you’re
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need

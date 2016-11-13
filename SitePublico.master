@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Convocatorias DGIAI</title>
+    <title>Convocatorias DGIAI</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -15,17 +15,17 @@
     <link rel="shortcut icon" type="image/x-icon" href="icono.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
     <style type="text/css">
-        .login {
-            background-color: #d21f1f !important;
-        }
-
-        body, html {
+       .body {
             font-family: 'Lato', sans-serif;
             font-size: 14px;
             height: inherit;
-            background: #f2f2f2;
+            background:#FFFFFF ;
         }
+        
     </style>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:700" type="text/css" />
     <link rel="stylesheet" href="Content/bootstrap.css" />
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <link rel="stylesheet" href="Content/Site.css" />
@@ -44,7 +44,12 @@
     <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="http://keenthemes.com/preview/metronic/theme/assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
-    <%--select2--%>
+     <%--pure--%>
+    <link href="css/third-party/pure.css" rel="stylesheet" />
+    <link href="css/third-party/pure.min.css" rel="stylesheet" />
+    <link href="css/third-party/tables.css" rel="stylesheet" />
+    <link href="css/third-party/tables.min.css" rel="stylesheet" />
+     <%--select2--%>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/gh-pages.css">
@@ -77,7 +82,7 @@
     <asp:ContentPlaceHolder ID="CSS" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body class="body">
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -102,7 +107,7 @@
             </Scripts>
         </asp:ScriptManager>
         <div class="container">
-            <div id="header" class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand">Convocatorias DGIAI
@@ -111,12 +116,12 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-left">
                             <li>
-                                <a>Favor de llenar la informacion que se pide acontinuacion</a>
+                                <a>Favor de llenar la informacion que se pide acontinuacion para encontrar las becas mas apropiadas de acuerdo a sus especificaciones</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </nav>
             <asp:ContentPlaceHolder ID="Contenido" runat="server">
             </asp:ContentPlaceHolder>
         </div>

@@ -7,35 +7,31 @@
             width: 500px !important;
         }
     </style>
-    <script type="text/javascript" src="Scripts/plugins/datatable.js"></script>
-    <script type="text/javascript" src="Scripts/plugins/datatables/all.min.js"></script>
+    <script src="Scripts/DataTables/jquery.dataTables.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
+            function TamañoVentana() {
+                var h = window.innerHeight
+                       || document.documentElement.clientHeight
+                       || document.getElementsByTagName('body')[0].clientHeight;
+                var w = window.innerWidth
+                        || document.documentElement.clientWidth
+                        || document.getElementsByTagName('body')[0].clientWidth;
+
+                return { width: w, height: h };
+            }
             $(".select2me").select2({
                 tags: "true",
                 allowClear: true
 
             });
-        });
-        
-        function TamañoVentana() {
-            var h = window.innerHeight
-                   || document.documentElement.clientHeight
-                   || document.getElementsByTagName('body')[0].clientHeight;
-            var w = window.innerWidth
-                    || document.documentElement.clientWidth
-                    || document.getElementsByTagName('body')[0].clientWidth;
-
-            return { width: w, height: h };
-        }
-        function OrdenarGV() {
             var Tam = TamañoVentana();
             var Alto = Tam.height - 270;
             if (Alto < 100) {
                 Alto = 100;
             }
-            $('#Contenido_GvConvocatorias').DataTable({
+            $('.ordenar').DataTable({
                 scrollY: Alto + 'px',
                 scrollCollapse: true,
                 paging: false,
@@ -44,7 +40,12 @@
                 destroy: true,
                 info: false
             });
+        });
+        
+        function OrdenarGV() {
+           
         }
+
         function SetValue(Hidden, Value) {
             document.getElementById(Hidden).value = Value;
         }
@@ -70,7 +71,7 @@
                 <ContentTemplate>
                     <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
                         DataKeyNames="idConvocatoria,Convocatoria,idPais,FechaI,FechaF,Duracion,Link,Info,idArea,idNivel"
-                        CssClass="table table-hover table-responsive"
+                        CssClass="pure-table pure-table-horizontal ordenar"
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre de Convocatoria" DataField="Convocatoria" />
@@ -87,6 +88,8 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <HeaderStyle CssClass="btn-danger" />
+                        <AlternatingRowStyle CssClass="pure-table-odd" />
                     </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>

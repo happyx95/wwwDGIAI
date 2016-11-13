@@ -30,7 +30,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="Absolute-Center is-Responsive">
-        <div class="panel panel-info">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title" style="text-align: center">
                     <h3>Convocatorias</h3>
