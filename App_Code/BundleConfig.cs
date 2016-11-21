@@ -12,23 +12,27 @@ namespace localhost
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkID=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
-        //    bundles.Add(new ScriptBundle("~/bundles/DataTables").Include(
-        //    "~/Scripts/DataTables/dataTables.bootstrap.js",
-        //    "~/Scripts/DataTables/dataTables.scroller.min.js",
-        //    "~/Scripts/DataTables/jquery.dataTables.js"
-        //));
-          //  bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
-          //     "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxComponentModel.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxGlobalization.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxHistory.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxNetwork.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxSerialization.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js",
-          //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebServices.js"
-          //));
+            //    bundles.Add(new ScriptBundle("~/bundles/DataTables").Include(
+            //    "~/Scripts/DataTables/dataTables.bootstrap.js",
+            //    "~/Scripts/DataTables/dataTables.scroller.min.js",
+            //    "~/Scripts/DataTables/jquery.dataTables.js"
+            //));
+            //  bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
+            //     "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxComponentModel.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxGlobalization.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxHistory.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxNetwork.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxSerialization.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js",
+            //    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebServices.js"
+            //));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+             "~/Scripts/jquery-1.10.2.min.js"
+             ));
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", null, new ScriptResourceDefinition { Path = "~/bundles/jquery" });
 
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",

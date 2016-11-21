@@ -65,6 +65,10 @@ public class PaginaWeb : System.Web.UI.Page
         if (!ClientScript.IsStartupScriptRegistered(this.GetType(), ScriptKey))
             ClientScript.RegisterStartupScript(this.GetType(), ScriptKey, script, true);
     }
+    protected void runScript(Page pagina,string alerta ) {
+
+        ScriptManager.RegisterClientScriptBlock(pagina, GetType(), "alert", alerta, true);
+    }
     /// <summary>
     /// Ejecuta codigo javascrip que dentro de un UpdatePanel
     /// </summary>
@@ -142,4 +146,5 @@ public class PaginaWeb : System.Web.UI.Page
     /// Tiene las propiedades que tiene el usario actual
     /// </summary>
     public Usuario CurrentUser { get { return ((Usuario) Session["Usuario"]) ?? new Usuario(); } }
+
 }

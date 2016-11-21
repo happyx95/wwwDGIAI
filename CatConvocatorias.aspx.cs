@@ -138,7 +138,7 @@ public partial class CatConvocatorias : PaginaWeb
         {
             GvConvocatorias.UseAccessibleHeader = true;
             GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-            RegistraScript("OrdenarGV();");
+            RegistraScript(this,"OrdenarGV();");
         }
     }
 

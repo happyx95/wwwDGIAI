@@ -6,45 +6,83 @@
             display: inline;
             width: 500px !important;
         }
+
+        /*th {
+            cursor: pointer;
+            background-color: #dadada;
+            color: Black;
+            font-weight: bold;
+            text-align: left;
+        }*/
+
+        th.headerSortUp {
+            background-image: url(sorter/asc.gif);
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        th.headerSortDown {
+            background-image: url(sorter/desc.gif);
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        /*td {
+            border-bottom: solid 1px #dadada;
+        }*/
     </style>
-    <script src="Scripts/DataTables/jquery.dataTables.js"></script>
+ <%--   <script src="Scripts/jquery.tablesorter.min.js" type="text/javascript"></script>--%>
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            function TamañoVentana() {
-                var h = window.innerHeight
-                       || document.documentElement.clientHeight
-                       || document.getElementsByTagName('body')[0].clientHeight;
-                var w = window.innerWidth
-                        || document.documentElement.clientWidth
-                        || document.getElementsByTagName('body')[0].clientWidth;
 
-                return { width: w, height: h };
-            }
-            $(".select2me").select2({
-                tags: "true",
-                allowClear: true
+        jQuery(document).ready(function () {
 
-            });
-            var Tam = TamañoVentana();
-            var Alto = Tam.height - 270;
-            if (Alto < 100) {
-                Alto = 100;
-            }
-            $('.ordenar').DataTable({
-                scrollY: Alto + 'px',
-                scrollCollapse: true,
-                paging: false,
-                searching: false,
-                retrieve: true,
-                destroy: true,
-                info: false
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+            Sys.Application.add_load(function (s, e) {
+                $(".select2me").select2({
+                    tags: "true",
+                    allowClear: true
+
+                });
+                var $example = $(".js-example-programmatic").select2();
+                var $exampleMulti = $(".js-example-programmatic-multi").select2();
+
+                $(".js-programmatic-set-val").on("click", function () { $example.val("CA").trigger("change"); });
+                $(".js-programmatic-open").on("click", function () { $example.select2("open"); });
+                $(".js-programmatic-close").on("click", function () { $example.select2("close"); });
+                $(".js-programmatic-init").on("click", function () { $example.select2(); });
+                $(".js-programmatic-destroy").on("click", function () { $example.select2("destroy"); });
+                $(".js-programmatic-multi-set-val").on("click", function () { $exampleMulti.val(["CA", "AL"]).trigger("change"); });
+                $(".js-programmatic-multi-clear").on("click", function () { $exampleMulti.val(null).trigger("change"); });
+
+               // $("#GvConvocatorias").tablesorter();
+
+                function TamañoVentana() {
+                    var h = window.innerHeight
+                           || document.documentElement.clientHeight
+                           || document.getElementsByTagName('body')[0].clientHeight;
+                    var w = window.innerWidth
+                            || document.documentElement.clientWidth
+                            || document.getElementsByTagName('body')[0].clientWidth;
+
+                    return { width: w, height: h };
+                }
+                var Tam = TamañoVentana();
+                var Alto = Tam.height - 270;
+                if (Alto < 100) {
+                    Alto = 100;
+                }
+                // 
             });
         });
-        
-        function OrdenarGV() {
-           
-        }
+        //$(document).ready(function () {
+
+        //});
+
+        //function OrdenarGV() {
+        //    $('#GvConvocatorias').dataTable();
+        //}
 
         function SetValue(Hidden, Value) {
             document.getElementById(Hidden).value = Value;
@@ -69,7 +107,7 @@
         <div class="col-md-12">
             <asp:UpdatePanel ID="UpConvocatorias" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
+                    <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None" ClientIDMode="Static"
                         DataKeyNames="idConvocatoria,Convocatoria,idPais,FechaI,FechaF,Duracion,Link,Info,idArea,idNivel"
                         CssClass="pure-table pure-table-horizontal ordenar"
                         AutoGenerateColumns="false">

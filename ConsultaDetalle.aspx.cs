@@ -52,6 +52,10 @@ public partial class ConsultaDetalle : PaginaWeb
         DdlArea.DataBind();
         DdlNivel.DataBind();
 
+        DdlArea.Items.Insert(0, new ListItem("Todos", "-1"));
+        DdlPais.Items.Insert(0, new ListItem("Todos", "-1"));
+        DdlNivel.Items.Insert(0, new ListItem("Todos", "-1"));
+
         GvConvocatorias.DataSource = ObjConvocatorias.getConsultaConvocatorias(idPais, idNivel, idArea);
         GvConvocatorias.DataBind();
         ObjDatos.Commit();

@@ -7,7 +7,6 @@
             width: 500px !important;
         }
     </style>
-    <script src="Scripts/DataTables/jquery.dataTables.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
     <br />
