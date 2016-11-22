@@ -16,28 +16,15 @@ public partial class CatConvocatorias : PaginaWeb
         {
             CargaDatos();
         }
-       // RegistraScript("$(document).ready(function () {$('.select2me').select2({tags: 'true',allowClear: true});});");
+
+        GvConvocatorias.UseAccessibleHeader = true;
+        GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
     }
     private void initEvents()
     {
         BtnConvocatoria.Click += BtnConvocatoria_Click;
         BtnEliminar.Click += BtnEliminar_Click;
-    }
-    private DataTable DtEjemplo()
-    {
-        DataTable dt = new DataTable();
-        dt.Columns.Add("Convocatoria", typeof(string));
-        dt.Columns.Add("Vigencia", typeof(string));
-        dt.Columns.Add("Pais", typeof(string));
-        dt.Columns.Add("Duracion", typeof(string));
-        dt.Columns.Add("Estado", typeof(string));
-
-        dt.Rows.Add("Prueba1", "nose", "Happylandia", "2 años", "abierta");
-        dt.Rows.Add("Prueba2", "nose", "Alemania", "3 años", "cerrada");
-        dt.Rows.Add("Prueba3", "nose", "España", "1 año", "abierta");
-
-        dt.AcceptChanges();
-        return dt;
     }
 
     private void CargaDatos()
@@ -59,8 +46,9 @@ public partial class CatConvocatorias : PaginaWeb
 
         ObjDatos.Commit();
         ObjDatos.Dispose();
+        UpDivConvocatoria.Update();
+        UpEliminar.Update();
         UpConvocatorias.Update();
-       // OrdenaDatos();
     }
     protected void BtnConvocatoria_Click(object sender, EventArgs e)
     {
@@ -72,6 +60,7 @@ public partial class CatConvocatorias : PaginaWeb
         {
             editarConvocatoria();
         }
+        // OrdenaDatos();
     }
     private void agregarConvocatoria()
     {
@@ -86,7 +75,7 @@ public partial class CatConvocatorias : PaginaWeb
         string info = TxtInfo.Text;
         int idArea = DdlAreas.SelectedValue.ToEntero();
         int idNivel = DdlNivel.SelectedValue.ToEntero();
-        if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info,idArea,idNivel))
+        if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria agregada correctamente", TipoMensaje.Informacion);
             GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
@@ -94,6 +83,12 @@ public partial class CatConvocatorias : PaginaWeb
         }
         ObjConvocatorias.Dispose();
         borrarCampos();
+
+        //GvConvocatorias.UseAccessibleHeader = true;
+        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+        UpDivConvocatoria.Update();
+        UpEliminar.Update();
         UpConvocatorias.Update();
         RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
     }
@@ -111,7 +106,7 @@ public partial class CatConvocatorias : PaginaWeb
         string info = TxtInfo.Text;
         int idArea = DdlAreas.SelectedValue.ToEntero();
         int idNivel = DdlNivel.SelectedValue.ToEntero();
-        if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info,idArea,idNivel))
+        if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria editada correctamente", TipoMensaje.Informacion);
             GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
@@ -119,6 +114,12 @@ public partial class CatConvocatorias : PaginaWeb
         }
         ObjConvocatorias.Dispose();
         borrarCampos();
+
+        //GvConvocatorias.UseAccessibleHeader = true;
+        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+        UpDivConvocatoria.Update();
+        UpEliminar.Update();
         UpConvocatorias.Update();
         RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
     }
@@ -138,7 +139,7 @@ public partial class CatConvocatorias : PaginaWeb
         {
             GvConvocatorias.UseAccessibleHeader = true;
             GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-            RegistraScript(this,"OrdenarGV();");
+            RegistraScript(this, "OrdenarGV();");
         }
     }
 
@@ -157,7 +158,14 @@ public partial class CatConvocatorias : PaginaWeb
         TxtInfo.Text = GvRow.DataKey("Info");
         DdlNivel.SelectedValue = GvRow.DataKey("idNivel");
         DdlAreas.SelectedValue = GvRow.DataKey("idArea");
+
+        //GvConvocatorias.UseAccessibleHeader = true;
+        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
         UpDivConvocatoria.Update();
+        UpEliminar.Update();
+        UpConvocatorias.Update();
+
         RegistraScript(this, "$('#DivConvocatoria').modal('show');$('#Titulo').text('Editar Convocatoria');");
     }
 
@@ -166,7 +174,14 @@ public partial class CatConvocatorias : PaginaWeb
         var LnkEliminar = sender as LinkButton;
         var GvRow = LnkEliminar.NamingContainer as GridViewRow;
         HdnIDEliminar.Value = GvRow.DataKey("idConvocatoria");
+
+        GvConvocatorias.UseAccessibleHeader = true;
+        GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+        
+        UpDivConvocatoria.Update();
         UpEliminar.Update();
+        UpConvocatorias.Update();
         RegistraScript(this, "$('#DivEliminar').modal('show')");
     }
 
@@ -181,6 +196,12 @@ public partial class CatConvocatorias : PaginaWeb
             GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
+
+        //GvConvocatorias.UseAccessibleHeader = true;
+        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+        UpDivConvocatoria.Update();
+        UpEliminar.Update();
         UpConvocatorias.Update();
         RegistraScript(this, "$('#DivEliminar').modal('hide')");
     }

@@ -61,9 +61,25 @@
     <link rel="stylesheet" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
     <script type="text/javascript" src="Scripts/select2.js"></script>
     <script type="text/javascript" src="Scripts/select2.min.js"></script>
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select2me").select2({
+                tags: "true",
+                allowClear: true
 
-    </script>
+            });
+            var $example = $(".js-example-programmatic").select2();
+            var $exampleMulti = $(".js-example-programmatic-multi").select2();
+
+            $(".js-programmatic-set-val").on("click", function () { $example.val("CA").trigger("change"); });
+            $(".js-programmatic-open").on("click", function () { $example.select2("open"); });
+            $(".js-programmatic-close").on("click", function () { $example.select2("close"); });
+            $(".js-programmatic-init").on("click", function () { $example.select2(); });
+            $(".js-programmatic-destroy").on("click", function () { $example.select2("destroy"); });
+            $(".js-programmatic-multi-set-val").on("click", function () { $exampleMulti.val(["CA", "AL"]).trigger("change"); });
+            $(".js-programmatic-multi-clear").on("click", function () { $exampleMulti.val(null).trigger("change"); });
+        });
+    </script>--%>
     <%--ordenamiento--%>
     <asp:ContentPlaceHolder ID="CSS" runat="server">
     </asp:ContentPlaceHolder>
@@ -86,7 +102,7 @@
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-               <%-- <asp:ScriptReference Path="~/Scripts/DataTables/jquery.dataTables.js" />--%>
+     <%--           <asp:ScriptReference Path="~/Scripts/select2.js" />--%>
                 <asp:ScriptReference Path="~/Scripts/select2.min.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
