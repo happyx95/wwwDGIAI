@@ -16,9 +16,12 @@ public partial class CatConvocatorias : PaginaWeb
         {
             CargaDatos();
         }
+        if (GvConvocatorias.Rows.Count > 0)
+        {
+            GvConvocatorias.UseAccessibleHeader = true;
+            GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
 
-        GvConvocatorias.UseAccessibleHeader = true;
-        GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
 
     }
     private void initEvents()
@@ -178,7 +181,7 @@ public partial class CatConvocatorias : PaginaWeb
         GvConvocatorias.UseAccessibleHeader = true;
         GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-        
+
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
