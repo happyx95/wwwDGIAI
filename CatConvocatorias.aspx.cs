@@ -27,8 +27,10 @@ public partial class CatConvocatorias : PaginaWeb
     private void initEvents()
     {
         BtnConvocatoria.Click += BtnConvocatoria_Click;
+        BtnConvocatoriaSeguir.Click += BtnConvocatoriaSeguir_Click;
         BtnEliminar.Click += BtnEliminar_Click;
     }
+
 
     private void CargaDatos()
     {
@@ -58,13 +60,26 @@ public partial class CatConvocatorias : PaginaWeb
         if (HdnModalidad.Value == "A")
         {
             agregarConvocatoria();
+            RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
+        }
+        else
+        {
+            editarConvocatoria();
+            RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
+        }
+    }
+    private void BtnConvocatoriaSeguir_Click(object sender, EventArgs e)
+    {
+        if (HdnModalidad.Value == "A")
+        {
+            agregarConvocatoria();
         }
         else
         {
             editarConvocatoria();
         }
-        // OrdenaDatos();
     }
+
     private void agregarConvocatoria()
     {
         var ObjConvocatorias = new ConConvocatorias();
@@ -87,13 +102,9 @@ public partial class CatConvocatorias : PaginaWeb
         ObjConvocatorias.Dispose();
         borrarCampos();
 
-        //GvConvocatorias.UseAccessibleHeader = true;
-        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
-        RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
     }
     private void editarConvocatoria()
     {
@@ -118,13 +129,9 @@ public partial class CatConvocatorias : PaginaWeb
         ObjConvocatorias.Dispose();
         borrarCampos();
 
-        //GvConvocatorias.UseAccessibleHeader = true;
-        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
-        RegistraScript(this, "$('#DivConvocatoria').modal('hide');");
     }
     private void borrarCampos()
     {
@@ -136,15 +143,15 @@ public partial class CatConvocatorias : PaginaWeb
         DdlDuracion.SelectedIndex = 0;
         DdlPais.SelectedIndex = 0;
     }
-    private void OrdenaDatos()
-    {
-        if (GvConvocatorias.Rows.Count > 0)
-        {
-            GvConvocatorias.UseAccessibleHeader = true;
-            GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-            RegistraScript(this, "OrdenarGV();");
-        }
-    }
+    //private void OrdenaDatos()
+    //{
+    //    if (GvConvocatorias.Rows.Count > 0)
+    //    {
+    //        GvConvocatorias.UseAccessibleHeader = true;
+    //        GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+    //        RegistraScript(this, "OrdenarGV();");
+    //    }
+    //}
 
     protected void LnkEditar_Click(object sender, EventArgs e)
     {
@@ -162,9 +169,6 @@ public partial class CatConvocatorias : PaginaWeb
         DdlNivel.SelectedValue = GvRow.DataKey("idNivel");
         DdlAreas.SelectedValue = GvRow.DataKey("idArea");
 
-        //GvConvocatorias.UseAccessibleHeader = true;
-        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
@@ -180,7 +184,6 @@ public partial class CatConvocatorias : PaginaWeb
 
         GvConvocatorias.UseAccessibleHeader = true;
         GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-
 
         UpDivConvocatoria.Update();
         UpEliminar.Update();
@@ -199,9 +202,6 @@ public partial class CatConvocatorias : PaginaWeb
             GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
-
-        //GvConvocatorias.UseAccessibleHeader = true;
-        //GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         UpDivConvocatoria.Update();
         UpEliminar.Update();

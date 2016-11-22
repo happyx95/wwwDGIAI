@@ -83,7 +83,7 @@
                 <br />
                 <div class="row">
                     <div class="col-xs-12" style="text-align:center">
-                        <asp:Button ID="BtnBuscar" runat="server" CssClass="btn btn-primary" Text="Buscar" />
+                        <asp:Button ID="BtnBuscar" runat="server" CssClass="btn btn-lg btn-success" Text="Buscar" />
                     </div>
                 </div>
             </div>

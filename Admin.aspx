@@ -22,6 +22,10 @@
                 max-width: 1080px;
                 padding: 40px;
             }
+        .a {
+            color:red;
+
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
@@ -45,12 +49,16 @@
                                 <h4>Convocatorias</h4>
                             </div>
                             <div class="col-md-4" style="text-align: center">
-                                <asp:HyperLink ID="HplUsuarios" runat="server" Target="_blank" NavigateUrl="~/CatConvocatorias.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-users fa-4x'></i>"></asp:HyperLink>
+                                <asp:HyperLink ID="HplUsuarios" runat="server" Target="_blank" NavigateUrl="~/CatUsuarios.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-users fa-4x'></i>"></asp:HyperLink>
                                 <h4>Usuarios</h4>
                             </div>
                             <div class="col-md-4" style="text-align: center">
-                                <asp:HyperLink ID="HplRegistros" runat="server" Target="_blank" NavigateUrl="~/CatConvocatorias.aspx" CssClass="btn btn-lg btn-circle " Text="<i class='fa fa-address-card  fa-4x'></i>"></asp:HyperLink>
+                                <asp:HyperLink ID="HplRegistros" runat="server" Target="_blank" NavigateUrl="~/RepEstudiantes.aspx" CssClass="btn btn-lg btn-circle " Text="<i class='fa fa-address-card  fa-4x'></i>"></asp:HyperLink>
                                 <h4>Estudiantes</h4>
+                            </div>
+                            <div class="col-md-4" style="text-align: center">
+                                <asp:HyperLink ID="HplDatos" runat="server" Target="_blank" NavigateUrl="~/CatDatos.aspx" CssClass="btn btn-lg btn-circle " Text="<i class='fa fa-cog  fa-4x'></i>"></asp:HyperLink>
+                                <h4>Datos del sistema</h4>
                             </div>
                         </div>
                     </div>

@@ -158,7 +158,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-success" Text="Aceptar" ValidationGroup="GrpConvocatoria" />
+                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-danger" Text="Aceptar y salir" ValidationGroup="GrpConvocatoria" />  
+                            <asp:Button ID="BtnConvocatoriaSeguir" runat="server" class="btn btn-success" Text="Aceptar y continuar" ValidationGroup="GrpConvocatoria" />
                             <button id="BtnCancelar" runat="server" type="button" class="btn default" data-dismiss="modal">Cancelar</button>
                         </div>
                         <asp:HiddenField ID="HdnModalidad" runat="server" Value="A" ClientIDMode="Static" />

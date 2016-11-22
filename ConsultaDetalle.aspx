@@ -14,6 +14,12 @@
     <div class="row">
         <div class="col-md-6">
             <h3>Resultado de la busqueda</h3>
+            <br />
+            <br />
+            <div class="form-group form-inline">
+                <label class="col-md-2 control-label " for="TxtBusqueda2" style="width: 100px">Buscar:</label>
+                <input type="text" id="TxtBusqueda2" class="form-control input-sm tam" onkeyup="<%= String.Format("FiltrarTabla('TxtBusqueda2','{0}')", GvConvocatorias.ClientID) %>" />
+            </div>
         </div>
         <div class="col-md-6">
             <div class="form-group form-inline">
@@ -57,7 +63,7 @@
                             </asp:TemplateField>
                             <asp:BoundField HeaderText="Estado" DataField="Estado" />
                         </Columns>
-                        <HeaderStyle CssClass="btn-danger"  />
+                        <HeaderStyle CssClass="btn-danger" />
                         <AlternatingRowStyle CssClass="pure-table-odd" />
                     </asp:GridView>
                 </ContentTemplate>
@@ -72,7 +78,8 @@
                     <h4 class="modal-title">Informacion</h4>
                 </div>
                 <div class="modal-body">
-                    <p><asp:Label ID="LblInfo" runat="server" ></asp:Label></p>
+                    <p>
+                        <asp:Label ID="LblInfo" runat="server"></asp:Label></p>
                 </div>
             </div>
         </div>
