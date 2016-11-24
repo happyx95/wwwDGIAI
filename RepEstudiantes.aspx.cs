@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class RepEstudiantes : System.Web.UI.Page
+public partial class RepEstudiantes : PaginaWeb
 {
     protected void Page_Load(object sender, EventArgs e)
     {

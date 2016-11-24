@@ -47,6 +47,7 @@ public partial class SiteMaster : MasterPage
         {
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
+            Session["Usuario"] = null;
         }
         catch (Exception)
         {

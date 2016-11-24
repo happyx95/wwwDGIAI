@@ -24,7 +24,7 @@ public class SysUsuarios : IDisposable
     #endregion
 
     #region F U N C I O N E S   Y   C O N S T R U C T O R
-    
+
     public SysUsuarios(SqlTransaction TransaccionCompartida = null)
     {
         if (TransaccionCompartida == null)
@@ -131,9 +131,48 @@ public class SysUsuarios : IDisposable
         }
         catch (Exception ex)
         {
-            
+
         }
         return id;
+    }
+    public bool updateUsuario(int idUsuario, string username, string password, int idRol)
+    {
+        bool retorno = false;
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+
+            StoredProcedure("SP_sys_updateUsuarios");
+            SqlAdapter.SelectCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
+            SqlAdapter.SelectCommand.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
+            SqlAdapter.SelectCommand.Parameters.Add("@idRol", SqlDbType.Int).Value = idRol;
+            SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+            SqlAdapter.Fill(Data);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return retorno;
+    }
+    public bool deleteUsuario(int idUsuario)
+    {
+        bool retorno = false;
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+
+            StoredProcedure("SP_sys_deleteUsuarios");
+            SqlAdapter.SelectCommand.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+            SqlAdapter.Fill(Data);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return retorno;
     }
     /// <summary>
     /// Regresa una tabla con los usuarios que existen en la base de datos
@@ -178,16 +217,16 @@ public class SysUsuarios : IDisposable
         {
             if (disposing)
             {
-                if (Data !=null)
+                if (Data != null)
                 {
                     Data.Dispose();
-                    
+
                 }
                 if (SqlAdapter != null)
                 {
                     SqlAdapter.Dispose();
                 }
-                if (Comando !=null)
+                if (Comando != null)
                 {
                     Comando.Dispose();
                 }

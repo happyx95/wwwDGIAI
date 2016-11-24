@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Catalogo de convocatorias" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="CatConvocatorias.aspx.cs" Inherits="CatConvocatorias" %>
+﻿<%@ Page Title="Registro de convocatorias" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="CatConvocatorias.aspx.cs" Inherits="CatConvocatorias" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="CSS" runat="Server">
 

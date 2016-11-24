@@ -91,7 +91,6 @@
                                             <ajaxToolkit:ValidatorCalloutExtender ID="VCEUsuario" runat="server" HighlightCssClass="VCO" TargetControlID="RFVUsuario" Width="300px"></ajaxToolkit:ValidatorCalloutExtender>
                                         </div>
                                     </div>
-                                </div>
                                 <br />
                                 <div class="form-group">
                                     <div class="row">
@@ -127,7 +126,7 @@
                     </form>
                 </div>
             </div>
-            <section id="footer" class="footer">
+<%--            <section id="footer" class="footer">
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <footer>
@@ -143,7 +142,7 @@
                         </footer>
                     </div>
                 </div>
-            </section>
+            </section>--%>
         </div>
     </div>
 
