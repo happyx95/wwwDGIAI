@@ -102,7 +102,6 @@ public class ConDatos
     {
         try
         {
-            //Comprueba si no se repite el nombre del usuario
             StoredProcedure("SP_Con_getPaises");
             SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
             SqlAdapter.Fill(Data);
@@ -111,6 +110,22 @@ public class ConDatos
         {
         }
         return Data;
+    }
+    public bool addPais(string nombre)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            StoredProcedure("SP_Con_addPaises");
+            SqlAdapter.SelectCommand.Parameters.Add("@Pais", SqlDbType.VarChar).Value = nombre;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
     }
 
     #endregion
@@ -149,6 +164,23 @@ public class ConDatos
         }
         return dt;
     }
+    public bool addArea(string nombre)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("SP_Con_addAreas");
+            SqlAdapter.SelectCommand.Parameters.Add("@Area", SqlDbType.VarChar).Value = nombre;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
     #endregion
 
     #region "C O N S U L T A S - D A T A B A S E"
@@ -157,7 +189,6 @@ public class ConDatos
         DataTable dt = new DataTable();
         try
         {
-            //Comprueba si no se repite el nombre del usuario
             StoredProcedure("SP_Con_addConsulta");
             SqlAdapter.SelectCommand.Parameters.Add("@idNivelActual", SqlDbType.Int).Value = idNivelActual;
             SqlAdapter.SelectCommand.Parameters.Add("@idNivelInteres", SqlDbType.Int).Value = idNivelInteres;
@@ -166,11 +197,25 @@ public class ConDatos
             SqlAdapter.SelectCommand.Parameters.Add("@Edad", SqlDbType.Int).Value = edad;
             SqlAdapter.SelectCommand.Parameters.Add("@Sexo", SqlDbType.VarChar).Value = sexo;
             SqlAdapter.Fill(dt);
+            retorno = true;
         }
         catch (Exception ex)
         {
         }
         return retorno;
+    }
+    public DataTable getConsultas()
+    {
+        DataTable dt = new DataTable();
+        try
+        {
+            StoredProcedure("SP_Con_getConsultas");
+            SqlAdapter.Fill(dt);
+        }
+        catch (Exception ex)
+        {
+        }
+        return dt;
     }
     #endregion
 

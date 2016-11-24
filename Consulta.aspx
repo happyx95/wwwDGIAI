@@ -26,11 +26,19 @@
                 max-width: 800px;
                 padding: 40px;
             }
+        .panel-danger > .panel-heading {
+            border-color:#ef3e2e;
+            background-color:#ef3e2e;
+            color:white;
+        }
+        .panel-danger {
+            border-color:#ef3e2e;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="Absolute-Center is-Responsive">
-        <div class="panel panel-default">
+        <div class="panel panel-danger">
             <div class="panel-heading">
                 <div class="panel-title" style="text-align: center">
                     <h3>Convocatorias</h3>
@@ -83,11 +91,9 @@
                 <br />
                 <div class="row">
                     <div class="col-xs-12" style="text-align:center">
-                        <asp:Button ID="BtnBuscar" runat="server" CssClass="btn btn-lg btn-success" Text="Buscar" />
+                        <asp:Button ID="BtnBuscar" runat="server" CssClass="btn btn-success" Text="Buscar" />
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer">
             </div>
         </div>
     </div>

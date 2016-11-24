@@ -20,17 +20,21 @@
                 height: 50%;
                 min-width: 200px;
                 max-width: 1080px;
-                padding: 40px;
+                padding:10px;
             }
-        .a {
-            color:red;
-
+             .panel-danger > .panel-heading {
+            border-color:#ef3e2e;
+            background-color:#ef3e2e;
+            color:white;
+        }
+        .panel-danger {
+            border-color:#ef3e2e;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="Absolute-Center is-Responsive">
-        <div class="panel panel-default">
+        <div class="panel panel-danger">
             <div class="panel-heading">
                 <div class="panel-title" style="text-align: center">
                     <h3>Convocatorias</h3>
@@ -38,7 +42,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-4" style="text-align: center">
                                 <asp:HyperLink ID="HplVer" runat="server" Target="_blank" NavigateUrl="~/Consulta.aspx" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-eye fa-4x'></i>"></asp:HyperLink>
@@ -63,8 +67,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer">
             </div>
         </div>
     </div>
