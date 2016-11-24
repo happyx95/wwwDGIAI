@@ -66,7 +66,7 @@
                          <h2>Sistema de Administración DGIAI</h2>
                     </a>
                 </div>
-                <img alt="Sistema de Administración DGIAI" class="pull-right" src="http://www.sonora.gob.mx/images/logo-sonora-2015.png" />
+                <img alt="Sistema de Administración DGIAI" class="pull-right" src="http://www.sec.gob.mx/dgiai/images/logo-dgiai.png" />
             </nav>
             <div class="container-fluid" style="margin-top: 7% !important; margin-bottom: 7%!important;">
                 <div class="content">

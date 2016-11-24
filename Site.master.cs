@@ -25,6 +25,14 @@ public partial class SiteMaster : MasterPage
                     Usuario user = (Usuario)Session["Usuario"];
                     LtlUsuario.Text = user.Username;
                 }
+                else
+                {
+                    if (Page.User.Identity.IsAuthenticated)
+                    {
+                        FormsAuthentication.SignOut();
+                        FormsAuthentication.RedirectToLoginPage();
+                    }
+                }
             }
         }
     }

@@ -31,7 +31,7 @@ public class PaginaWeb : System.Web.UI.Page
     /// <param name="pagina"></param>
     /// <param name="mensaje"></param>
     /// <param name="Tipo"></param>
-    protected void Notificar(Page pagina,string mensaje,TipoMensaje Tipo)
+    protected void Notificar(Page pagina, string mensaje, TipoMensaje Tipo)
     {
         string alerta = "";
         switch (Tipo)
@@ -65,7 +65,8 @@ public class PaginaWeb : System.Web.UI.Page
         if (!ClientScript.IsStartupScriptRegistered(this.GetType(), ScriptKey))
             ClientScript.RegisterStartupScript(this.GetType(), ScriptKey, script, true);
     }
-    protected void runScript(Page pagina,string alerta ) {
+    protected void runScript(Page pagina, string alerta)
+    {
 
         ScriptManager.RegisterClientScriptBlock(pagina, GetType(), "alert", alerta, true);
     }
@@ -75,9 +76,19 @@ public class PaginaWeb : System.Web.UI.Page
     /// <param name="pagina"></param>
     /// <param name="script"></param>
     /// <param name="ScriptKey"></param>
-    protected void RegistraScript(Page pagina,string script, string ScriptKey = "ScriptKey")
+    protected void RegistraScript(Page pagina, string script, string ScriptKey = "ScriptKey")
     {
+        if (!ClientScript.IsStartupScriptRegistered(this.GetType(), ScriptKey))
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), ScriptKey, script, true);
+            ScriptManager.RegisterClientScriptBlock(pagina, GetType(), ScriptKey, script, true);
+        }
+    }
+    protected void RegistraScriptSoloPostBack(Page pagina, string script, string ScriptKey = "ScriptKey")
+    {
+
         ScriptManager.RegisterClientScriptBlock(pagina, GetType(), ScriptKey, script, true);
+
     }
     /// <summary>
     /// Encripta un string y retorna un chorizote como valor nuevo
@@ -145,6 +156,6 @@ public class PaginaWeb : System.Web.UI.Page
     /// <summary>
     /// Tiene las propiedades que tiene el usario actual
     /// </summary>
-    public Usuario CurrentUser { get { return ((Usuario) Session["Usuario"]) ?? new Usuario(); } }
+    public Usuario CurrentUser { get { return ((Usuario)Session["Usuario"]) ?? new Usuario(); } }
 
 }

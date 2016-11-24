@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" %>
+﻿<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="CSS" runat="server">
     <style>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-md-4" style="text-align: center">
                                 <asp:HyperLink ID="HplDatos" runat="server" Target="_blank" NavigateUrl="~/CatDatos.aspx" CssClass="btn btn-lg btn-circle " Text="<i class='fa fa-cog  fa-4x'></i>"></asp:HyperLink>
-                                <h4>Datos del sistema</h4>
+                                <h4>Configuracion</h4>
                             </div>
                         </div>
                     </div>

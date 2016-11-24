@@ -26,6 +26,11 @@ public partial class ConsultaDetalle : PaginaWeb
                 CargaDatos();
             }
         }
+        if (GvConvocatorias.Rows.Count > 0)
+        {
+            GvConvocatorias.UseAccessibleHeader = true;
+            GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
     }
     private Hashtable Parametros(string cadena)
     {
@@ -71,7 +76,8 @@ public partial class ConsultaDetalle : PaginaWeb
     {
         var BtnInfo = sender as Button;
         var GvRow = BtnInfo.NamingContainer as GridViewRow;
-        LblInfo.Text = GvRow.DataKey("Info");
-        RegistraScript(this, "$('#DivInfo').modal('show')");
+        LblInfo.InnerText = GvRow.DataKey("Info");
+        UpInfo.Update();
+        RegistraScriptSoloPostBack(this, "$('#DivInfo').modal('show');");
     }
 }

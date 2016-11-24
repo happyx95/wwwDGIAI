@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SitePublico.master" AutoEventWireup="true" CodeFile="ConsultaDetalle.aspx.cs" Inherits="ConsultaDetalle" %>
+﻿<%@ Page Title="Resultados de la busqueda" Language="C#" MasterPageFile="~/SitePublico.master" AutoEventWireup="true" CodeFile="ConsultaDetalle.aspx.cs" Inherits="ConsultaDetalle" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="Server">
     <style>
@@ -6,7 +6,12 @@
             display: inline;
             width: 500px !important;
         }
+
+        .modal-body p {
+            word-wrap: break-word;
+        }
     </style>
+    <script src="lib/jquery.popdown.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Contenido" runat="Server">
     <br />
@@ -47,7 +52,7 @@
                 <ContentTemplate>
                     <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
                         DataKeyNames="Info"
-                        CssClass="pure-table pure-table-horizontal"
+                        CssClass="pure-table pure-table-horizontal ordenar"
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre de Convocatoria" DataField="Convocatoria" />
@@ -70,17 +75,27 @@
             </asp:UpdatePanel>
         </div>
     </div>
-    <div id="DivInfo" class="modal fade">
-        <div class="modal-dialog modal-sm">
+    <div id="DivInfo" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="DivInfoLabel" aria-hidden="true">
+        <div class="modal-dialog" role="contentinfo">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Informacion</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <asp:Label ID="LblInfo" runat="server"></asp:Label></p>
-                </div>
+                <asp:UpdatePanel ID="UpInfo" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Informacion</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p id="LblInfo" runat="server"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerar</button>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </div>

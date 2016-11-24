@@ -188,7 +188,7 @@ public partial class CatConvocatorias : PaginaWeb
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
-        RegistraScript(this, "$('#DivEliminar').modal('show')");
+        RegistraScript(this, "$('#DivEliminar').modal('show');");
     }
 
     protected void BtnEliminar_Click(object sender, EventArgs e)
@@ -206,6 +206,6 @@ public partial class CatConvocatorias : PaginaWeb
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
-        RegistraScript(this, "$('#DivEliminar').modal('hide')");
+        RegistraScript(this, "$('#DivEliminar').modal('hide');");
     }
 }
