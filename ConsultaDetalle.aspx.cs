@@ -17,12 +17,12 @@ public partial class ConsultaDetalle : PaginaWeb
     {
         if (!IsPostBack)
         {
-            if (Request["P"] != null)
+            if (Request["idPais"] != null && Request["idNivel"] != null && Request["idArea"] != null)
             {
-                var UrlParametros = Parametros(Decripta(Request["P"].ToString()));
-                idPais = UrlParametros["IDPAIS"].ToString().ToEntero();
-                idNivel = UrlParametros["IDNIVEL"].ToString().ToEntero();
-                idArea = UrlParametros["IDAREA"].ToString().ToEntero();
+                //var UrlParametros = Parametros(Decripta(Request["P"].ToString()));
+                idPais = Request["idPais"].ToString().ToEntero();
+                idNivel = Request["idNivel"].ToString().ToEntero();
+                idArea = Request["idArea"].ToString().ToEntero();
                 CargaDatos();
             }
         }

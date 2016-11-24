@@ -66,7 +66,6 @@
                                     <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-sm btn-success" Width="70%" Text="Ver" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField HeaderText="Estado" DataField="Estado" />
                         </Columns>
                         <HeaderStyle CssClass="btn-danger" />
                         <AlternatingRowStyle CssClass="pure-table-odd" />

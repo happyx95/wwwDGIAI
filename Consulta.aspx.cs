@@ -57,7 +57,7 @@ public partial class Consulta : PaginaWeb
         sb.Append($"idNivel={DdlNivelEstudio.SelectedValue}&");
         sb.Append($"idArea={DdlArea.SelectedValue}&");
         sb.Append($"idPais={DdlPais.SelectedValue}");
-        string url = $"ConsultaDetalle.aspx?P={Encripta(sb.ToString())}";
+        string url = $"ConsultaDetalle.aspx?{sb.ToString()}";
         Response.Redirect(url);
     }
     private void GuardarRegistroConsulta()

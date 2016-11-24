@@ -106,13 +106,13 @@
                                     </div>
                                 </div>
                                 <br />
-                                <div class="form-group">
+                            <%--    <div class="form-group">
                                     <div class="row">
                                         <div style="text-align: left;" class="col-md-12">
                                             <asp:CheckBox ID="ChkTemporal" runat="server" CssClass="checkbox checkbox-inline" Text="Agregar Usuario" AutoPostBack="false" />
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12" style="text-align: center">
