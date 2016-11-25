@@ -198,6 +198,21 @@ public class SysUsuarios : IDisposable
     }
     #endregion
 
+    #region R O L E S - D A T A B A S E
+    public DataTable getRoles()
+    {
+        try
+        {
+            StoredProcedure("SELECT * FROM Sys_Roles",CommandType.Text);
+            SqlAdapter.Fill(Data);
+        }
+        catch (Exception)
+        {
+
+        }
+        return Data;
+    }
+    #endregion
     #region P R O P I E D A D E S
     /// <summary>
     /// Regresa verdadero si la ultima consulta trajo 1 o mas usuarios

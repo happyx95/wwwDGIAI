@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Extensiones.Extensiones;
+using System.Data;
 
 public partial class CatUsuarios : PaginaWeb
 {
+    private DataTable DtUsuarios { get { return (DataTable)ViewState["DtUsuarios"]; } set { ViewState["DtUsuarios"] = value; } }
     protected void Page_Load(object sender, EventArgs e)
     {
-        initEvents();
+        // initEvents();
         if (!IsPostBack)
         {
             CargaDatos();
@@ -18,9 +20,9 @@ public partial class CatUsuarios : PaginaWeb
     }
     private void initEvents()
     {
-        BtnUsuario.Click += BtnUsuario_Click;
-        BtnUsuarioSeguir.Click += BtnUsuarioSeguir_Click;
-        BtnEliminar.Click += BtnEliminar_Click;
+        //BtnUsuario.Click += BtnUsuario_Click;
+        //BtnUsuarioSeguir.Click += BtnUsuarioSeguir_Click;
+        //BtnEliminar.Click += BtnEliminar_Click;
     }
     private void agregarUsuario()
     {
@@ -30,11 +32,17 @@ public partial class CatUsuarios : PaginaWeb
         string conf = TxtConfir.Text.Trim();
         if (pass.Equals(conf))
         {
-            int id = ObjUsuarios.addUsuario(nombre, Encripta(pass), "", DdlRol.SelectedValue.ToEntero());
+            int id = ObjUsuarios.addUsuario(nombre, pass, "", DdlRol.SelectedValue.ToEntero());
             if (id > 0)
             {
                 Notificar(this, "Usuario agregado correctamente", TipoMensaje.Informacion);
             }
+        }
+        else
+        {
+            Notificar(this, "Las contraseñas con coinciden", TipoMensaje.Error);
+            UpDivUsuario.Update();
+            return;
         }
         GvUsuarios.DataSource = ObjUsuarios.getUsuarios();
         ObjUsuarios.Dispose();
@@ -53,55 +61,61 @@ public partial class CatUsuarios : PaginaWeb
         int id = HdnID.Value.ToEntero();
         if (pass.Equals(conf))
         {
-            if (ObjUsuarios.updateUsuario(id, nombre, Encripta(pass), DdlRol.SelectedValue.ToEntero()))
+            var DrUsuario = DtUsuarios.FiltroPrimero($"idUsuario={id} AND Contrasenia='{Encripta(pass)}'");
+            if (DrUsuario != null)
             {
-                Notificar(this, "Usuario modificado correctamente", TipoMensaje.Informacion);
+                if (ChkCambio.Checked)
+                {
+                    if (TxtNuevaPass.Text.Trim().Equals(TxtNuevaPassConf.Text.Trim()))
+                    {
+                        if (ObjUsuarios.updateUsuario(id, nombre, Encripta(TxtNuevaPass.Text.Trim()), DdlRol.SelectedValue.ToEntero()))
+                        {
+                            Notificar(this, "Usuario modificado correctamente", TipoMensaje.Informacion);
+                            DtUsuarios = ObjUsuarios.getUsuarios();
+                            GvUsuarios.DataSource = DtUsuarios;
+                        }
+                    }
+                    else
+                    {
+                        Notificar(this, "Las contraseñas con coinciden", TipoMensaje.Error);
+                    }
+                }
+                else
+                {
+                    if (ObjUsuarios.updateUsuario(id, nombre, Encripta(pass), DdlRol.SelectedValue.ToEntero()))
+                    {
+                        Notificar(this, "Usuario modificado correctamente", TipoMensaje.Informacion);
+                        DtUsuarios = ObjUsuarios.getUsuarios();
+                        GvUsuarios.DataSource = DtUsuarios;
+                    }
+                }
+            }
+            else
+            {
+                Notificar(this, "Contraseña incorrecta", TipoMensaje.Error);
             }
         }
-        GvUsuarios.DataSource = ObjUsuarios.getUsuarios();
+        else
+        {
+            Notificar(this, "Las contraseñas con coinciden", TipoMensaje.Error);
+        }
+        
         ObjUsuarios.Dispose();
         GvUsuarios.DataBind();
 
         UpUsuarios.Update();
         UpDivUsuario.Update();
     }
-    private void BtnEliminar_Click(object sender, EventArgs e)
-    {
-       
-    }
-
-    private void BtnUsuarioSeguir_Click(object sender, EventArgs e)
-    {
-        if (HdnModalidad.Value == "A")
-        {
-            agregarUsuario();
-        }
-        else
-        {
-            editarUsuario();
-        }
-    }
-
-    private void BtnUsuario_Click(object sender, EventArgs e)
-    {
-        if (HdnModalidad.Value == "A")
-        {
-            agregarUsuario();
-            RegistraScript(this, "$('#DivUsuario').modal('hide');");
-        }
-        else
-        {
-            editarUsuario();
-            RegistraScript(this, "$('#DivUsuario').modal('hide');");
-        }
-    }
 
     private void CargaDatos()
     {
         var ObjUsuarios = new SysUsuarios();
-        GvUsuarios.DataSource = ObjUsuarios.getUsuarios();
+        DtUsuarios = ObjUsuarios.getUsuarios();
+        GvUsuarios.DataSource = DtUsuarios;
+        DdlRol.DataSource = ObjUsuarios.getRoles();
         ObjUsuarios.Dispose();
         GvUsuarios.DataBind();
+        DdlRol.DataBind();
         UpUsuarios.Update();
     }
 
@@ -112,21 +126,88 @@ public partial class CatUsuarios : PaginaWeb
         HdnModalidad.Value = "E";
         HdnID.Value = GvRow.DataKey("idUsuario");
         TxtNombre.Text = GvRow.DataKey("Username");
+        CambioContraseña.Visible = true;
+        UpUsuarios.Update();
+        UpDivUsuario.Update();
+        RegistraScript(this, "$('#DivUsuario').modal('show');$('#Titulo').text('Editar Usuario');");
+
     }
 
     protected void LnkDelete_Click(object sender, EventArgs e)
     {
         var lnk = sender as LinkButton;
         var GvRow = lnk.NamingContainer as GridViewRow;
-        int id = GvRow.DataKey("idUsuario").ToEntero();
-        var objUsuarios = new SysUsuarios();
-        if (objUsuarios.deleteUsuario(id))
+        HdnIDEliminar.Value = GvRow.DataKey("idUsuario");
+        UpEliminar.Update();
+        RegistraScript(this, "$('#DivEliminar').modal('show');");
+    }
+
+    protected void BtnUsuario_Click1(object sender, EventArgs e)
+    {
+        if (HdnModalidad.Value == "A")
         {
-            Notificar(this, "Usuario agregado correctamente", TipoMensaje.Error);
-            GvUsuarios.DataSource = objUsuarios.getUsuarios();
+            agregarUsuario();
+            RegistraScript(this, "$('#DivUsuario').modal('hide');");
+        }
+        else
+        {
+            editarUsuario();
+            RegistraScript(this, "$('#DivUsuario').modal('hide');");
+        }
+    }
+
+    protected void BtnUsuarioSeguir_Click1(object sender, EventArgs e)
+    {
+        if (HdnModalidad.Value == "A")
+        {
+            agregarUsuario();
+        }
+        else
+        {
+            editarUsuario();
+        }
+    }
+
+    protected void BtnEliminar_Click1(object sender, EventArgs e)
+    {
+        int id = HdnIDEliminar.Value.ToEntero();
+        string pass = TxtPassEliminar.Text.Trim(), conf = TxtConfirEliminar.Text.Trim();
+        if (pass.Equals(conf))
+        {
+            var DrUsuario = DtUsuarios.FiltroPrimero($"idUsuario={id} AND Contrasenia='{Encripta(pass)}'");
+            if (DrUsuario != null)
+            {
+                var objUsuarios = new SysUsuarios();
+                if (objUsuarios.deleteUsuario(id))
+                {
+                    Notificar(this, "Usuario eliminado correctamente", TipoMensaje.Informacion);
+                    DtUsuarios = objUsuarios.getUsuarios();
+                    GvUsuarios.DataSource = DtUsuarios;
+                }
+                objUsuarios.Dispose();
+                GvUsuarios.DataBind();
+            }
+            else
+            {
+                Notificar(this, "Contraseña incorrecta", TipoMensaje.Error);
+            }
 
         }
-        objUsuarios.Dispose();
-        GvUsuarios.DataBind();
+        else
+        {
+            Notificar(this, "Las contraseñas no coinciden", TipoMensaje.Error);
+        }
+        UpUsuarios.Update();
+        UpEliminar.Update();
+        RegistraScript(this, "$('#DivEliminar').modal('hide');");
+    }
+
+    protected void ChkCambio_CheckedChanged(object sender, EventArgs e)
+    {
+        DivNueva.Visible = ChkCambio.Checked;
+        DivNuevaConf.Visible = ChkCambio.Checked;
+        HdnModalidad.Value = "E";
+        UpDivUsuario.Update();
+        RegistraScript(this, "$('#Titulo').text('Editar Usuario');");
     }
 }

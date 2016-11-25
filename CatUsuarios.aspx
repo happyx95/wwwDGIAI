@@ -13,7 +13,7 @@
     <div class="row" style="vertical-align: central; display: inline">
         <div class="col-md-6" style="text-align: left;">
             <div class="form-group form-inline">
-                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="javascript:$('#DivUsuario').modal('show');$('#Titulo').text('Agregar Usuario');SetValue('HdnModalidad', 'A');" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
+                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="javascript:$('#DivUsuario').modal('show');$('#Titulo').text('Agregar Usuario');SetValue('HdnModalidad', 'A');$('#Contenido_CambioContraseña').hide();" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
                 <label class="control-label">Nuevo Usuario</label>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <asp:UpdatePanel ID="UpUsuarios" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="GvUsuarios" runat="server" GridLines="None" ClientIDMode="Static"
-                        DataKeyNames="idUsuario,idRol,Username,Contrasenia,Rol,Correo"
+                        DataKeyNames="idUsuario,idRol,Username,Contrasenia,Rol"
                         CssClass="pure-table pure-table-horizontal ordenar"
                         AutoGenerateColumns="false">
                         <Columns>
@@ -70,26 +70,42 @@
                                         <asp:RequiredFieldValidator ID="RFVA" runat="server" ControlToValidate="TxtNombre" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Nombre''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group form-inline">
-                                        <label class="col-lg-3 control-label " for="<%= TxtNombre.ClientID %>">Contraseña:</label>
-                                        <asp:TextBox ID="TxtPass" runat="server" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TxtPass" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
-                                    </div>
-                                    <div class="form-group form-inline">
                                         <label class="col-lg-3 control-label" for="<%= DdlRol.ClientID %>">Rol:</label>
                                         <asp:DropDownList ID="DdlRol" runat="server" DataValueField="idRol" DataTextField="Rol" Width="280px" CssClass="form-control input-sm tam select2me">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group form-inline">
+                                        <label class="col-lg-3 control-label " for="<%= TxtNombre.ClientID %>">Contraseña:</label>
+                                        <asp:TextBox ID="TxtPass" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TxtPass" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="form-group form-inline">
                                         <label class="col-lg-3 control-label " for="<%= TxtConfir.ClientID %>">Confirmar Contraseña:</label>
-                                        <asp:TextBox ID="TxtConfir" runat="server" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
+                                        <asp:TextBox ID="TxtConfir" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TxtConfir" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Confirmar contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div id="CambioContraseña" runat="server" visible="false" >
+                                        <div class="form-group form-inline">
+                                            <asp:CheckBox ID="ChkCambio" runat="server" Enabled="true" AutoPostBack="true" Checked="false" Text="Cambiar contraseña" OnCheckedChanged="ChkCambio_CheckedChanged" ClientIDMode="Static" CssClass="checkbox checkbox-inline" />
+                                            
+                                        </div>
+                                        <div class="form-group form-inline" id="DivNueva" runat="server" visible="false">
+                                            <label class="col-lg-3 control-label " for="<%= TxtNombre.ClientID %>">Nueva Contraseña:</label>
+                                            <asp:TextBox ID="TxtNuevaPass" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TxtPass" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
+                                        </div>
+                                        <div class="form-group form-inline" id="DivNuevaConf" runat="server" visible ="false">
+                                            <label class="col-lg-3 control-label " for="<%= TxtConfir.ClientID %>">Confirmar Nueva Contraseña:</label>
+                                            <asp:TextBox ID="TxtNuevaPassConf" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuario"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="TxtConfir" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Confirmar contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="BtnUsuario" runat="server" class="btn btn-danger" Text="Aceptar y salir" ValidationGroup="GrpUsuario" />
-                            <asp:Button ID="BtnUsuarioSeguir" runat="server" class="btn btn-success" Text="Aceptar y continuar" ValidationGroup="GrpUsuario" />
+                            <asp:Button ID="BtnUsuario" runat="server" class="btn btn-danger" OnClick="BtnUsuario_Click1" Text="Aceptar y salir" />
+                            <asp:Button ID="BtnUsuarioSeguir" runat="server" class="btn btn-success" OnClick="BtnUsuarioSeguir_Click1" Text="Aceptar y continuar" />
                             <button id="BtnCancelar" runat="server" type="button" class="btn default" data-dismiss="modal">Cancelar</button>
                         </div>
                         <asp:HiddenField ID="HdnModalidad" runat="server" Value="A" ClientIDMode="Static" />
@@ -100,7 +116,7 @@
         </div>
     </div>
     <div id="DivEliminar" class="modal fade">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog ">
             <asp:UpdatePanel ID="UpEliminar" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <div class="modal-content">
@@ -109,20 +125,20 @@
                             <h4 class="modal-title">Eliminar</h4>
                         </div>
                         <div class="modal-body">
-                            <h4>¿Desea eliminar la convocatoria?</h4>
+                            <h4>¿Desea eliminar este usuario?</h4>
                         </div>
                         <div class="form-group form-inline">
                             <label class="col-lg-3 control-label " for="<%= TxtNombre.ClientID %>">Contraseña:</label>
-                            <asp:TextBox ID="TxtPassEliminar" runat="server" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuarioE"></asp:TextBox>
+                            <asp:TextBox ID="TxtPassEliminar" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuarioE"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TxtPassEliminar" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group form-inline">
                             <label class="col-lg-3 control-label " for="<%= TxtNombre.ClientID %>">Confirmar Contraseña:</label>
-                            <asp:TextBox ID="TxtConfirEliminar" runat="server" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuarioE"></asp:TextBox>
+                            <asp:TextBox ID="TxtConfirEliminar" runat="server" TextMode="Password" CssClass="form-control input-sm tam" ValidationGroup="GrpUsuarioE"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="TxtConfirEliminar" Display="None" ErrorMessage="<b><span style='text-decoration: underline'>ERROR:</span></b><br />El campo <b>''Contraseña''</b> es necesario, por favor ingréselo." ValidationGroup="GrpUsuario"></asp:RequiredFieldValidator>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="BtnEliminar" runat="server" class="btn btn-danger" Text="Eliminar" ValidationGroup="GrpUsuarioE" />
+                            <asp:Button ID="BtnEliminar" runat="server" OnClick="BtnEliminar_Click1" class="btn btn-danger" Text="Eliminar" />
                             <button type="button" class="btn default" data-dismiss="modal">Cancelar</button>
                         </div>
                         <asp:HiddenField ID="HdnIDEliminar" runat="server" Value="-1" ClientIDMode="Static" />
