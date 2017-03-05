@@ -25,7 +25,7 @@ public partial class Login : PaginaWeb
 
     private void BtnIngresar_Click(object sender, EventArgs e)
     {
-        var ObjUsuarios = new SysUsuarios();
+        var dbUsuarios = new SysUsuarios();
         string usuario, password;
         usuario = TxtUsuario.Text.Trim();
         password = Encripta(TxtPassword.Text.Trim());
@@ -44,8 +44,8 @@ public partial class Login : PaginaWeb
         //}
         //else
         //{
-        DataTable dtUsuarios = ObjUsuarios.getUsuarios();
-        if (ObjUsuarios.HasUsuarios)
+        DataTable dtUsuarios = dbUsuarios.getUsuarios();
+        if (dbUsuarios.HasUsuarios)
         {
             DataRow RowUsuario = dtUsuarios.FiltroPrimero($"Username='{TxtUsuario.Text.Trim()}' AND Contrasenia='{password}'");
             if (RowUsuario != null && RowUsuario["Username"].Equals(usuario) && RowUsuario["Contrasenia"].Equals(password))
@@ -69,7 +69,11 @@ public partial class Login : PaginaWeb
             }
        // }
         }
-        ObjUsuarios.Dispose();
+        if (!string.IsNullOrEmpty(dbUsuarios.ErrorMessage))
+        {
+            Alert(this, dbUsuarios.ErrorMessage,"Error");
+        }
+        dbUsuarios.Dispose();
         UpLogin.Update();
     }
 }

@@ -61,6 +61,7 @@
                             <asp:BoundField HeaderText="Duración de Intercambio" DataField="Duracion" />
                             <asp:BoundField HeaderText="Area de Estudio" DataField="AreaEstudio" />
                             <asp:BoundField HeaderText="Nivel" DataField="Nivel" />
+                            <asp:BoundField HeaderText="Estado" DataField="Estado" />
                             <asp:TemplateField HeaderText="Informacion Adicional" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
                                 <ItemTemplate>
                                     <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-sm btn-success" Width="70%" Text="Ver" />
@@ -91,7 +92,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

@@ -127,7 +127,39 @@ public class ConDatos
         }
         return retorno;
     }
-
+    public bool updatePais(int idPais,string nombre)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            StoredProcedure("UPDATE Con_Paises SET Pais=@Pais WHERE idPais=@idPais",CommandType.Text);
+            SqlAdapter.SelectCommand.Parameters.Add("@Pais", SqlDbType.VarChar).Value = nombre;
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    public bool deletePais(int idPais)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            StoredProcedure("DELETE FROM Con_Paises WHERE idPais=@idPais", CommandType.Text);
+            SqlAdapter.SelectCommand.Parameters.Add("@idPais", SqlDbType.Int).Value = idPais;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
     #endregion
 
     #region "N I V E L E S - D A T A B A S E"
@@ -173,6 +205,41 @@ public class ConDatos
             //Comprueba si no se repite el nombre del usuario
             StoredProcedure("SP_Con_addAreas");
             SqlAdapter.SelectCommand.Parameters.Add("@Area", SqlDbType.VarChar).Value = nombre;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    public bool updateArea(int idArea,string nombre)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("UPDATE Con_Areas SET AreaEstudio = @Area WHERE idArea=@idARea",CommandType.Text);
+            SqlAdapter.SelectCommand.Parameters.Add("@Area", SqlDbType.VarChar).Value = nombre;
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+            SqlAdapter.Fill(dt);
+            retorno = true;
+        }
+        catch (Exception ex)
+        {
+        }
+        return retorno;
+    }
+    public bool deleteArea(int idArea)
+    {
+        bool retorno = false;
+        DataTable dt = new DataTable();
+        try
+        {
+            //Comprueba si no se repite el nombre del usuario
+            StoredProcedure("DELETE FROM Con_Areas WHERE idArea=@idArea", CommandType.Text);
+            SqlAdapter.SelectCommand.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
             SqlAdapter.Fill(dt);
             retorno = true;
         }

@@ -15,7 +15,7 @@
     <script src="http://servicios.sonora.gob.mx/scripts/jquery-1.11.1.min.js"></script>
     <script src="http://servicios.sonora.gob.mx/scripts/bootstrap/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="http://keenthemes.com/preview/metronic/theme/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+<%--    <script src="http://keenthemes.com/preview/metronic/theme/assets/pages/scripts/login.min.js" type="text/javascript"></script>--%>
     <style type="text/css">
         .login {
             background-color: #d21f1f !important;

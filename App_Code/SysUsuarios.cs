@@ -21,6 +21,8 @@ public class SysUsuarios : IDisposable
     private bool disposedValue = false; // Para detectar llamadas redundantes
     private bool HayUsuarios = false;
     private int ultimoUsuario = 0;
+    private PaginaWeb pagina;
+    public string ErrorMessage { get; private set; }
     #endregion
 
     #region F U N C I O N E S   Y   C O N S T R U C T O R
@@ -131,7 +133,7 @@ public class SysUsuarios : IDisposable
         }
         catch (Exception ex)
         {
-
+            ErrorMessage = ex.ToString();
         }
         return id;
     }
@@ -152,7 +154,7 @@ public class SysUsuarios : IDisposable
         }
         catch (Exception ex)
         {
-
+            ErrorMessage = ex.ToString();
         }
         return retorno;
     }
@@ -170,7 +172,7 @@ public class SysUsuarios : IDisposable
         }
         catch (Exception ex)
         {
-
+            ErrorMessage = ex.ToString();
         }
         return retorno;
     }
@@ -190,9 +192,9 @@ public class SysUsuarios : IDisposable
             SqlAdapter.Fill(Data);
             HayUsuarios = Data.Rows.Count > 0;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            ErrorMessage = ex.ToString();
         }
         return Data;
     }
@@ -206,9 +208,9 @@ public class SysUsuarios : IDisposable
             StoredProcedure("SELECT * FROM Sys_Roles",CommandType.Text);
             SqlAdapter.Fill(Data);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            ErrorMessage = ex.ToString();
         }
         return Data;
     }

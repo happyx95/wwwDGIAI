@@ -92,4 +92,116 @@ public partial class CatDatos : PaginaWeb
         }
         UpDatos.Update();
     }
+
+    protected void LnkEditPais_Click(object sender, EventArgs e)
+    {
+        string pais = DdlPais.SelectedItem.Text;
+        TxtEditarPais.Text = pais;
+        HdnIDPais.Value = DdlPais.SelectedValue;
+        
+        UpEditPais.Update();
+        UpDatos.Update();
+        RegistraScript(this, "$('#DivEditarPais').modal('show');");
+    }
+
+
+    protected void LnkEditArea_Click(object sender, EventArgs e)
+    {
+        string area = DdlArea.SelectedItem.Text;
+        TxtEditArea.Text = area;
+        HdnIDArea.Value = DdlArea.SelectedValue;
+       
+        UpEditArea.Update();
+        UpDatos.Update();
+
+        RegistraScript(this, "$('#DivEditarArea').modal('show');");
+    }
+
+    protected void BtnEliminarArea_Click(object sender, EventArgs e)
+    {
+        var objDatos = new ConDatos();
+        if (objDatos.deleteArea(DdlArea.SelectedValue.ToEntero()))
+        {
+            Notificar(this, "Area de estudio eliminada correctamente", TipoMensaje.Informacion);
+            DtAreas = objDatos.getAreas();
+            DdlArea.DataSource = DtAreas;
+        }
+        else
+        {
+            Notificar(this, "Ocurrio un error al eliminar el area de estudio", TipoMensaje.Error);
+        }
+        objDatos.Dispose();
+        DdlArea.DataBind();
+        UpDatos.Update();
+        RegistraScript(this, "$('#DivEliminarArea').modal('hide');");
+    }
+
+    protected void BtnEliminarPais_Click(object sender, EventArgs e)
+    {
+        var objDatos = new ConDatos();
+        if (objDatos.deletePais(DdlPais.SelectedValue.ToEntero()))
+        {
+            Notificar(this, "Pais eliminado correctamente", TipoMensaje.Informacion);
+            DtPaises = objDatos.getPaises();
+            DdlPais.DataSource = DtPaises;
+        }
+        else
+        {
+            Notificar(this, "Ocurrio un error al eliminar el pais", TipoMensaje.Error);
+        }
+        objDatos.Dispose();
+        DdlPais.DataBind();
+        UpDatos.Update();
+        RegistraScript(this, "$('#DivEliminarPais').modal('hide');");
+    }
+
+    protected void BtnEditPais_Click(object sender, EventArgs e)
+    {
+        if (TxtEditarPais.Text.Trim() != "")
+        {
+            var objDatos = new ConDatos();
+            if (objDatos.updatePais(HdnIDPais.Value.ToEntero(),TxtEditarPais.Text.Trim()))
+            {
+                Notificar(this, "El pais se modifico correctamente", TipoMensaje.Informacion);
+                DtPaises = objDatos.getPaises();
+                DdlPais.DataSource = DtPaises;
+            }
+            else
+            {
+
+                Notificar(this, "Ocurrio un error al modificar el pais", TipoMensaje.Error);
+            }
+            objDatos.Dispose();
+            DdlPais.DataBind();
+            UpDatos.Update();
+
+        }
+
+        RegistraScript(this, "$('#DivEditarPais').modal('hide');");
+    }
+
+    protected void BtnEditArea_Click(object sender, EventArgs e)
+    {
+        if (TxtEditArea.Text.Trim() != "")
+        {
+            var objDatos = new ConDatos();
+            if (objDatos.updateArea(HdnIDArea.Value.ToEntero(), TxtEditArea.Text.Trim()))
+            {
+                Notificar(this, "El area de estudio se modifico correctamente", TipoMensaje.Informacion);
+                DtAreas = objDatos.getAreas();
+                DdlArea.DataSource = DtAreas;
+            }
+            else
+            {
+
+                Notificar(this, "Ocurrio un error al modificar el area de estudio", TipoMensaje.Error);
+            }
+            objDatos.Dispose();
+            DdlArea.DataBind();
+            UpDatos.Update();
+
+        }
+
+        RegistraScript(this, "$('#DivEditarArea').modal('hide');");
+    }
 }

@@ -96,7 +96,7 @@ public partial class CatConvocatorias : PaginaWeb
         if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria agregada correctamente", TipoMensaje.Informacion);
-            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
+            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, -1);
             GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
@@ -123,7 +123,7 @@ public partial class CatConvocatorias : PaginaWeb
         if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria editada correctamente", TipoMensaje.Informacion);
-            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
+            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, -1);
             GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
@@ -198,7 +198,7 @@ public partial class CatConvocatorias : PaginaWeb
         if (ObjConvocatorias.deleteConvocatoria(idConvocatoria))
         {
             Notificar(this, "Convocatoria eliminada correctamente", TipoMensaje.Informacion);
-            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
+            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, -1);
             GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
