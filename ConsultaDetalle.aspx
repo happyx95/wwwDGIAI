@@ -18,7 +18,7 @@
     <br />
     <div class="row">
         <div class="col-md-6">
-            <h3>Resultado de la busqueda</h3>
+            <h2>Resultado de la búsqueda</h2>
             <br />
             <br />
             <div class="form-group form-inline">
@@ -28,17 +28,17 @@
         </div>
         <div class="col-md-6">
             <div class="form-group form-inline">
-                <label class="col-lg-4 control-label" for="<%= DdlNivel.ClientID %>">Nivel de Estudio de Interes:</label>
+                <label class="col-lg-4 control-label" for="<%= DdlNivel.ClientID %>">Nivel de Estudio de Interés:</label>
                 <asp:DropDownList ID="DdlNivel" runat="server" DataValueField="idNivel" DataTextField="Nivel" CssClass="form-control input-sm tam select2me">
                 </asp:DropDownList>
             </div>
             <div class="form-group form-inline">
-                <label class="col-lg-4 control-label" for="<%= DdlArea.ClientID %>">Area de Estudio:</label>
+                <label class="col-lg-4 control-label" for="<%= DdlArea.ClientID %>">Área de Estudio:</label>
                 <asp:DropDownList ID="DdlArea" runat="server" DataValueField="idArea" DataTextField="AreaEstudio" CssClass="form-control input-sm tam select2me">
                 </asp:DropDownList>
             </div>
             <div class="form-group form-inline">
-                <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Pais:</label>
+                <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">País:</label>
                 <asp:DropDownList ID="DdlPais" runat="server" DataValueField="idPais" DataTextField="Pais" CssClass="form-control input-sm tam select2me">
                 </asp:DropDownList>
             </div>
@@ -50,7 +50,7 @@
         <div class="col-md-12">
             <asp:UpdatePanel ID="UpConvocatorias" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None"
+                    <asp:GridView ID="GvConvocatorias" runat="server" GridLines="None" OnRowDataBound="GvConvocatorias_RowDataBound"
                         DataKeyNames="Info"
                         CssClass="pure-table pure-table-horizontal ordenar"
                         AutoGenerateColumns="false">
@@ -59,12 +59,16 @@
                             <asp:BoundField HeaderText="Vigencia" DataField="Vigencia" />
                             <asp:BoundField HeaderText="País" DataField="Pais" />
                             <asp:BoundField HeaderText="Duración de Intercambio" DataField="Duracion" />
-                            <asp:BoundField HeaderText="Area de Estudio" DataField="AreaEstudio" />
+                            <asp:BoundField HeaderText="Área de Estudio" DataField="AreaEstudio" />
                             <asp:BoundField HeaderText="Nivel" DataField="Nivel" />
-                            <asp:BoundField HeaderText="Estado" DataField="Estado" />
-                            <asp:TemplateField HeaderText="Informacion Adicional" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+                            <asp:TemplateField HeaderText="Estado">
                                 <ItemTemplate>
-                                    <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-sm btn-success" Width="70%" Text="Ver" />
+                                    <asp:Label ID="LblEstado" Text='<%# DataBinder.Eval(Container.DataItem, "Estado") %>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Información Adicional" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+                                <ItemTemplate>
+                                    <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-sm btn-success" Width="70%" Height="60%" Text="Ver" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -82,7 +86,7 @@
                     <ContentTemplate>
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Informacion</h4>
+                            <h2 class="modal-title">Información</h2>
                         </div>
                         <div class="modal-body">
                             <div class="row">

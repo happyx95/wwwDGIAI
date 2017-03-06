@@ -73,17 +73,17 @@
                     </div>
                 </div>
                 <div class="form-group form-inline">
-                    <label class="col-lg-4 control-label" for="<%= DdlNivel.ClientID %>">Nivel de Estudio de Interes:</label>
+                    <label class="col-lg-4 control-label" for="<%= DdlNivel.ClientID %>">Nivel de Estudio de Interés:</label>
                     <asp:DropDownList ID="DdlNivel" runat="server" DataValueField="idNivel" DataTextField="Nivel" CssClass="form-control input-sm tam select2me">
                     </asp:DropDownList>
                 </div>
                 <div class="form-group form-inline">
-                    <label class="col-lg-4 control-label" for="<%= DdlArea.ClientID %>">Area de Estudio:</label>
+                    <label class="col-lg-4 control-label" for="<%= DdlArea.ClientID %>">Área de Estudio:</label>
                     <asp:DropDownList ID="DdlArea" runat="server" DataValueField="idArea" DataTextField="AreaEstudio" CssClass="form-control input-sm tam select2me">
                     </asp:DropDownList>
                 </div>
                 <div class="form-group form-inline">
-                    <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Pais:</label>
+                    <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">País:</label>
                     <asp:DropDownList ID="DdlPais" runat="server" DataValueField="idPais" DataTextField="Pais" CssClass="form-control input-sm tam select2me">
                     </asp:DropDownList>
                 </div>

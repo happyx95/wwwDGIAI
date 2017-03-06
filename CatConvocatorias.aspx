@@ -6,21 +6,46 @@
         function SetValue(Hidden, Value) {
             document.getElementById(Hidden).value = Value;
         }
+        function CleanModal() {
+            var txtnombre = document.getElementById("<%= TxtNombre.ClientID %>");
+            var txtinfo = document.getElementById("<%= TxtInfo.ClientID %>");
+            var txtlink = document.getElementById("<%= TxtLink.ClientID %>");
 
+            var ddlPais = document.getElementById("<%= DdlPais.ClientID %>");
+            var ddlDuracion = document.getElementById("<%= DdlDuracion.ClientID %>");
+            var ddlNivel = document.getElementById("<%= DdlNivel.ClientID %>");
+            var ddlAreas = document.getElementById("<%= DdlAreas.ClientID %>");
+
+            //limpia los controles
+            txtnombre.value = "";
+            txtinfo.value = "";
+            txtlink.value = "";
+
+            ddlPais.selectedIndex = "0";
+            ddlDuracion.selectedIndex = "0";
+            ddlNivel.selectedIndex = "0";
+            ddlAreas.selectedIndex = "0";
+
+            $(".select2me").select2({
+                tags: "true",
+                placeholder: "Seleccione",
+                allowClear: true
+            });
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Contenido" runat="Server">
     <div class="row" style="vertical-align: central; display: inline">
         <div class="col-md-6" style="text-align: left;">
             <div class="form-group form-inline">
-                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="javascript:$('#DivConvocatoria').modal('show');$('#Titulo').text('Agregar Convocatoria');SetValue('HdnModalidad', 'A');" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
+                <asp:HyperLink ID="HplNueva" runat="server" NavigateUrl="javascript:$('#DivConvocatoria').modal('show');$('#Titulo').text('Agregar Convocatoria');SetValue('HdnModalidad', 'A');CleanModal();" CssClass="btn btn-lg btn-circle" Text="<i class='fa fa-plus-circle fa-2x'></i>"></asp:HyperLink>
                 <label class="control-label">Nueva convocatoria</label>
             </div>
         </div>
         <div class="col-md-6" style="text-align: left">
             <br />
             <div class="form-group form-inline">
-                <label class="col-md-2 control-label " for="TxtBusqueda2" style="width:100px">Buscar:</label>
+                <label class="col-md-2 control-label " for="TxtBusqueda2" style="width: 100px">Buscar:</label>
                 <input type="text" id="TxtBusqueda2" class="form-control input-sm tam" onkeyup="<%= String.Format("FiltrarTabla('TxtBusqueda2','{0}')", GvConvocatorias.ClientID) %>" />
             </div>
         </div>
@@ -40,7 +65,7 @@
                             <asp:BoundField HeaderText="Vigencia" DataField="Vigencia" />
                             <asp:BoundField HeaderText="País" DataField="Pais" />
                             <asp:BoundField HeaderText="Duración de Intercambio" DataField="Duracion" />
-                            <asp:BoundField HeaderText="Area de Estudio" DataField="AreaEstudio" />
+                            <asp:BoundField HeaderText="Área de Estudio" DataField="AreaEstudio" />
                             <asp:BoundField HeaderText="Nivel" DataField="Nivel" />
                             <asp:BoundField HeaderText="Estado" DataField="Estado" />
                             <asp:TemplateField HeaderText="Opciones">
@@ -74,7 +99,7 @@
                                         <asp:TextBox ID="TxtNombre" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                                     </div>
                                     <div class="form-group form-inline">
-                                        <label class="col-lg-2 control-label" for="<%= DdlPais.ClientID %>">Pais:</label>
+                                        <label class="col-lg-2 control-label" for="<%= DdlPais.ClientID %>">País:</label>
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-sm btn-circle js-programmatic-open" type="button" data-select2-open="<%= DdlPais.ClientID %>">
@@ -138,7 +163,7 @@
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group form-inline">
-                                        <label class="col-lg-2 control-label" for="<%= DdlAreas.ClientID %>">Area:</label>
+                                        <label class="col-lg-2 control-label" for="<%= DdlAreas.ClientID %>">Área:</label>
                                         <asp:DropDownList ID="DdlAreas" DataTextField="AreaEstudio" DataValueField="idArea" runat="server" Width="280px" CssClass="form-control input-sm tam select2me">
                                         </asp:DropDownList>
                                     </div>
@@ -158,7 +183,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-danger" Text="Aceptar y salir" ValidationGroup="GrpConvocatoria" />  
+                            <asp:Button ID="BtnConvocatoria" runat="server" class="btn btn-danger" Text="Aceptar y salir" ValidationGroup="GrpConvocatoria" />
                             <asp:Button ID="BtnConvocatoriaSeguir" runat="server" class="btn btn-success" Text="Aceptar y continuar" ValidationGroup="GrpConvocatoria" />
                             <button id="BtnCancelar" runat="server" type="button" class="btn default" data-dismiss="modal">Cancelar</button>
                         </div>

@@ -27,7 +27,7 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             <div class="panel-title" style="text-align: center">
-                                <h3>Paises</h3>
+                                <h3>Países</h3>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-inline">
-                                        <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Lista de Paises:</label>
+                                        <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Lista de Países:</label>
                                         <asp:DropDownList ID="DdlPais" runat="server" DataValueField="idPais" DataTextField="Pais" Width="47%" CssClass="form-control input-sm tam select2me">
                                         </asp:DropDownList>&nbsp&nbsp
                                         <asp:LinkButton ID="LnkEditPais" runat="server" CssClass="btn btn-circle btn-sm btn-success " OnClick="LnkEditPais_Click" Text="<i class='fa fa-pencil'></i>"></asp:LinkButton>&nbsp&nbsp
@@ -58,7 +58,7 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             <div class="panel-title" style="text-align: center">
-                                <h3>Areas de Estudio</h3>
+                                <h3>Áreas de Estudio</h3>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -74,7 +74,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-inline">
-                                        <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Lista de Areas:</label>
+                                        <label class="col-lg-4 control-label" for="<%= DdlPais.ClientID %>">Lista de Áreas:</label>
                                         <asp:DropDownList ID="DdlArea" runat="server" DataValueField="idArea" DataTextField="AreaEstudio" Width="47%" CssClass="form-control input-sm tam select2me">
                                         </asp:DropDownList>&nbsp&nbsp
                                         <asp:LinkButton ID="LnkEditArea" runat="server" CssClass="btn btn-circle btn-sm btn-success " OnClick="LnkEditArea_Click" Text="<i class='fa fa-pencil'></i>"></asp:LinkButton>&nbsp&nbsp
@@ -98,7 +98,7 @@
                             <h4 class="modal-title">Eliminar</h4>
                         </div>
                         <div class="modal-body">
-                            <h4>¿Desea eliminar este pais?</h4>
+                            <h4>¿Desea eliminar este país?</h4>
                         </div>
                         <div class="modal-footer">
                             <asp:Button ID="BtnEliminarPais" runat="server" OnClick="BtnEliminarPais_Click" class="btn btn-danger" Text="Eliminar" />
@@ -119,7 +119,7 @@
                             <h4 class="modal-title">Eliminar</h4>
                         </div>
                         <div class="modal-body">
-                            <h4>¿Desea eliminar esta area de estudio?</h4>
+                            <h4>¿Desea eliminar esta área de estudio?</h4>
                         </div>
                         <div class="modal-footer">
                             <asp:Button ID="BtnEliminarArea" runat="server" OnClick="BtnEliminarArea_Click" class="btn btn-danger" Text="Eliminar" />
@@ -141,7 +141,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group form-inline">
-                                <label class="col-lg-3 control-label " for="<%= TxtEditarPais.ClientID %>">Pais:</label>
+                                <label class="col-lg-3 control-label " for="<%= TxtEditarPais.ClientID %>">País:</label>
                                 <asp:TextBox ID="TxtEditarPais" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group form-inline">
-                                <label class="col-lg-3 control-label " for="<%= TxtEditArea.ClientID %>">Area de estudio:</label>
+                                <label class="col-lg-3 control-label " for="<%= TxtEditArea.ClientID %>">Área de estudio:</label>
                                 <asp:TextBox ID="TxtEditArea" runat="server" CssClass="form-control input-sm tam"></asp:TextBox>
                             </div>
                         </div>

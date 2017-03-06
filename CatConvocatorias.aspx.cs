@@ -38,19 +38,23 @@ public partial class CatConvocatorias : PaginaWeb
         var ObjConvocatorias = new ConConvocatorias(ObjDatos.startTransactionSQL());
 
         DdlPais.DataSource = ObjDatos.getPaises();
-        DdlPais.DataBind();
-
         DdlAreas.DataSource = ObjDatos.getAreas();
-        DdlAreas.DataBind();
-
         DdlNivel.DataSource = ObjDatos.getNiveles();
-        DdlNivel.DataBind();
 
         GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, CurrentUser.idUsuario);
-        GvConvocatorias.DataBind();
 
         ObjDatos.Commit();
         ObjDatos.Dispose();
+
+        DdlPais.DataBind();
+        DdlAreas.DataBind();
+        DdlNivel.DataBind();
+        GvConvocatorias.DataBind();
+
+        DdlPais.Items.Insert(0, new ListItem("Seleccione", "-1"));
+        DdlAreas.Items.Insert(0, new ListItem("Seleccione", "-1"));
+        DdlNivel.Items.Insert(0, new ListItem("Seleccione", "-1"));
+
         UpDivConvocatoria.Update();
         UpEliminar.Update();
         UpConvocatorias.Update();
@@ -85,21 +89,94 @@ public partial class CatConvocatorias : PaginaWeb
         var ObjConvocatorias = new ConConvocatorias();
         string convocatoria = TxtNombre.Text.Trim();
         int idPais = DdlPais.SelectedValue.ToEntero();
-        DateTime FechaI = txtFechaI.Text.ToDate();
-        DateTime FechaF = txtFechaF.Text.ToDate();
+      
         string duracion = DdlDuracion.SelectedValue;
         string link = TxtLink.Text.Trim();
         bool estado = true;
         string info = TxtInfo.Text;
         int idArea = DdlAreas.SelectedValue.ToEntero();
         int idNivel = DdlNivel.SelectedValue.ToEntero();
+
+        if (string.IsNullOrEmpty(convocatoria))
+        {
+            Notificar(this, "Escriba una convocatoria", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (idPais <= 0)
+        {
+            Notificar(this, "Seleccione un pais", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+        if (string.IsNullOrEmpty(txtFechaI.Text))
+        {
+            Notificar(this, "Seleccione una fecha inicial", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(txtFechaF.Text))
+        {
+            Notificar(this, "Seleccione una fecha final", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        DateTime FechaI = txtFechaI.Text.Trim().ToDate();
+        DateTime FechaF = txtFechaF.Text.Trim().ToDate();
+
+        if ((FechaF - FechaI).TotalDays <= 0)
+        {
+            Notificar(this, "La fecha final es menor a la fecha menor", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+        if (idNivel <= 0)
+        {
+            Notificar(this, "Seleccione un nivel de estudio", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (idArea <= 0)
+        {
+            Notificar(this, "Seleccione un area de estudio", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(duracion))
+        {
+            Notificar(this, "Seleccione una duracion", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
         if (ObjConvocatorias.addConvocatoria(convocatoria, idPais, FechaI, FechaF, duracion, link, estado, CurrentUser.idUsuario, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria agregada correctamente", TipoMensaje.Informacion);
             GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, -1);
-            GvConvocatorias.DataBind();
         }
         ObjConvocatorias.Dispose();
+        GvConvocatorias.DataBind();
         borrarCampos();
 
         UpDivConvocatoria.Update();
@@ -108,25 +185,99 @@ public partial class CatConvocatorias : PaginaWeb
     }
     private void editarConvocatoria()
     {
-        var ObjConvocatorias = new ConConvocatorias();
+
+
         int idConvocatoria = HdnID.Value.ToEntero();
         string convocatoria = TxtNombre.Text.Trim();
         int idPais = DdlPais.SelectedValue.ToEntero();
-        DateTime FechaI = txtFechaI.Text.ToDate();
-        DateTime FechaF = txtFechaF.Text.ToDate();
         string duracion = DdlDuracion.SelectedValue;
         string link = TxtLink.Text.Trim();
         bool estado = true;
         string info = TxtInfo.Text;
         int idArea = DdlAreas.SelectedValue.ToEntero();
         int idNivel = DdlNivel.SelectedValue.ToEntero();
-        if (ObjConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info, idArea, idNivel))
+
+        if (string.IsNullOrEmpty(convocatoria))
+        {
+            Notificar(this, "Escriba una convocatoria", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (idPais <= 0)
+        {
+            Notificar(this, "Seleccione un pais", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+        if (string.IsNullOrEmpty(txtFechaI.Text))
+        {
+            Notificar(this, "Seleccione una fecha inicial", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(txtFechaF.Text))
+        {
+            Notificar(this, "Seleccione una fecha final", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        DateTime FechaI = txtFechaI.Text.Trim().ToDate();
+        DateTime FechaF = txtFechaF.Text.Trim().ToDate();
+        if ((FechaF - FechaI).TotalDays <= 0)
+        {
+            Notificar(this, "La fecha final es menor a la fecha menor", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+        if (idNivel <= 0)
+        {
+            Notificar(this, "Seleccione un nivel de estudio", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (idArea <= 0)
+        {
+            Notificar(this, "Seleccione un area de estudio", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(duracion))
+        {
+            Notificar(this, "Seleccione una duracion", TipoMensaje.Error);
+            UpDivConvocatoria.Update();
+            UpEliminar.Update();
+            UpConvocatorias.Update();
+            return;
+        }
+
+        var dbConvocatorias = new ConConvocatorias();
+        if (dbConvocatorias.updateConvocatoria(idConvocatoria, convocatoria, idPais, FechaI, FechaF, duracion, link, estado, info, idArea, idNivel))
         {
             Notificar(this, "Convocatoria editada correctamente", TipoMensaje.Informacion);
-            GvConvocatorias.DataSource = ObjConvocatorias.getConvocatorias(-1, -1);
-            GvConvocatorias.DataBind();
+            GvConvocatorias.DataSource = dbConvocatorias.getConvocatorias(-1, -1);
         }
-        ObjConvocatorias.Dispose();
+        dbConvocatorias.Dispose();
+        GvConvocatorias.DataBind();
+
         borrarCampos();
 
         UpDivConvocatoria.Update();
@@ -142,16 +293,8 @@ public partial class CatConvocatorias : PaginaWeb
         txtFechaI.Text = "";
         DdlDuracion.SelectedIndex = 0;
         DdlPais.SelectedIndex = 0;
+        DdlAreas.SelectedIndex = 0;
     }
-    //private void OrdenaDatos()
-    //{
-    //    if (GvConvocatorias.Rows.Count > 0)
-    //    {
-    //        GvConvocatorias.UseAccessibleHeader = true;
-    //        GvConvocatorias.HeaderRow.TableSection = TableRowSection.TableHeader;
-    //        RegistraScript(this, "OrdenarGV();");
-    //    }
-    //}
 
     protected void LnkEditar_Click(object sender, EventArgs e)
     {

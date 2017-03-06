@@ -80,4 +80,19 @@ public partial class ConsultaDetalle : PaginaWeb
         UpInfo.Update();
         RegistraScriptSoloPostBack(this, "$('#DivInfo').modal('show');");
     }
+
+    protected void GvConvocatorias_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            if (e.Row.FCLabel("LblEstado").Text == "Abierta")
+            {
+                e.Row.FCLabel("LblEstado").CssClass = "label label-success";
+            }
+            else if (e.Row.FCLabel("LblEstado").Text == "Cerrada")
+            {
+                e.Row.FCLabel("LblEstado").CssClass = "label label-danger";
+            }
+        }
+    }
 }
