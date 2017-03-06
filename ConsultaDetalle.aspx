@@ -68,7 +68,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Información Adicional" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
                                 <ItemTemplate>
-                                    <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-sm btn-success" Width="70%" Height="60%" Text="Ver" />
+                                    <asp:Button ID="BtnInfo" runat="server" OnClick="BtnInfo_Click" CssClass="btn btn-xs btn-success" Width="70%" Height="60%" Text="Ver" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
